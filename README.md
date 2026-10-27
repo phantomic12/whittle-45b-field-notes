@@ -45,7 +45,7 @@ content sits in the wrong hidden space for this model.
 | Q2_K rejected | **+40.0% PPL** (7.4340 → 10.4041); 16.44 GB is not a usable size for this model |
 | Needle-in-haystack, 16K | **8/8 exact** at all four depths, on CPU *and* on an Intel Arc Pro B60 |
 | Arc Pro B60 throughput | 54.0 s/case vs 555 s CPU-only = **10.3×**; 21.31 GB model in 21.4 GB VRAM via partial offload (~17.8 GB resident, ~3.5 GB in RAM) |
-| Spliced experts, marginal cost | ablating all 76 costs **+0.268 PPL** (+0.038 nats); 76 *original* experts cost **+8.11 PPL** (+0.77 nats) — an order of magnitude per byte, and the damage is **4.9× worse on Q3_K_M than Q4_K at matched flags** |
+| Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+17.4% PPL on Q4_K** and **+15.4% on Q3_K_M** — the quant barely changes the damage. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
 
@@ -65,10 +65,12 @@ prediction I made, and the measurement that killed it.
    writing. It was based on two narrow probes (name cloze, GSM-50). At matched settings
    the 45B is 13.1% better at prose perplexity at 4K, and the margin *grows* with context.
    A low marginal value per byte is not zero value.
-4. **"The spliced experts are pure dead weight."** Too strong. The 30× inertness factor is
-   a prose number; on code it is 4.3×. And a routing profile on a G4 shows they are
-   preferentially recruited by reasoning prompts. Selected is not the same as load-bearing —
-   but "dead" was the wrong word.
+4. **"The spliced experts are pure dead weight."** Too strong, and the size of the error was
+   only found three entries later. The "+0.27 PPL, removable at no cost" figure was measured
+   at `ngl=20` on the laptop; at `ngl=0` on CPU the same ablation costs **+1.30 PPL** and
+   **+17.4%**. The 30× inertness factor was a GPU-baseline artefact. On a CPU baseline with
+   matched settings the spliced experts cost **+16%** perplexity to remove, on both 4-bit and
+   3-bit. They are inefficient, not inert.
 5. **"The engram table is load-bearing."** Unsupported. Zeroing 50% of it moves PPL by
    +0.06, inside a ±0.69 error bar. The dramatic 584,413 figure for zeroing 100% is a
    numerical singularity in the PLE gate, not information loss — proven by an ablation of
@@ -102,7 +104,8 @@ the index reflects what actually happened.
 | 7 | 2026-10-26 | [Arc Pro B60: 10.3×, after four separate blockers](diary/2026-10-26-arc-pro-b60-four-blockers-ten-x.md) | qwen4exp is not upstream, SYCL aborts, Vulkan works, 21.31 GB fits 21.4 GB by partial offload |
 | 8 | 2026-10-27 | [The G4 routing profile that overturned "dead weight"](diary/2026-10-27-g4-routing-profile-overturns-dead-weight.md) | +37% relative recruitment for reasoning, layers 13–26, and probes showing 2/8 EOS |
 | 9 | 2026-10-27 | [Ablation: the experts are load-bearing, and the damage is superlinear](diary/2026-10-27-ablation-experts-are-load-bearing.md) | +2.48% PPL from ablating 14 middle layers, +15.42% from all 40 — 2.2x the proportional prediction |
-| 10 | 2026-10-27 | [The harness was worth 5.3%, and the rest of the gap is real](diary/2026-10-27-harness-cost-5-percent-and-the-nats-label.md) | chunk count alone moves baseline +5.30%; at matched flags Q3_K_M damage is 4.9× Q4_K; and the "+0.27 nats" headline was PPL points — the nats ratio is 20.5×, not 31× |
+| 10 | 2026-10-27 | [The harness was worth 5.3%, and the rest of the gap is real](diary/2026-10-27-harness-cost-5-percent-and-the-nats-label.md) | chunk count alone moves baseline +5.30% — but its headline "4.9× worse on Q3_K_M" compared different *hardware*, not matched flags. **Superseded by entry 11 within the hour.** |
+| 11 | 2026-10-27 | [Q4_K is more damaged than Q3_K_M, not 4.9× less](diary/2026-10-27-q4k-is-more-damaged-than-q3-not-less.md) | at matched settings **Q4_K +17.44%** vs **Q3_K_M +15.42%** — quant level barely matters. Also: the original "+0.27 PPL, removable at no cost" was an `ngl=20` GPU number that does not reproduce on CPU (+1.30 PPL), so the "dead weight" verdict was wrong by ~5× |
 
 ## Provenance
 
@@ -112,10 +115,16 @@ nothing is extrapolated without saying so. Where a number in an early entry was 
 to be invalid, the entry says which one and why rather than being quietly edited — the error
 rate of my own measurement pipeline is part of the record.
 
-**Read the `--chunks` count before comparing any two perplexity numbers in this repo.**
-Averaging 2 windows instead of 24 moves the baseline by +5.3% on the same file, and moves an
-ablated model by +9.0%, so a mismatch between harnesses inflates a delta by ~1.26×. Every
-table states its flags; entry 10 is the measurement of what happens when they do not match.
+**Read the `--chunks` count AND the `ngl` before comparing any two perplexity numbers in this
+repo.** Two effects, both measured on the same file:
+
+- `--chunks 2` vs `24` moves the baseline by +5.30% and an ablated model by +8.95%, inflating
+  a delta by ~1.26× (entry 10).
+- `ngl=20` (GPU) vs `ngl=0` (CPU) moves the Q4_K baseline **6.6%** — larger than the ablation
+  effect being measured. Entry 10 compared a GPU number to a CPU number and drew a 4.9×
+  conclusion from it; entry 11 is the correction.
+
+Every table states its flags; a ratio is only as matched as its worst-matched factor.
 
 Hardware referenced throughout:
 
