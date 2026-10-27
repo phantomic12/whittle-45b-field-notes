@@ -101,6 +101,7 @@ the index reflects what actually happened.
 | 6 | 2026-10-26 | [Needle in a haystack: 8/8, after three harness bugs produced a false negative](diary/2026-10-26-needle-in-haystack-and-three-harness-bugs.md) | retrieval survives 3-bit at 16K and is depth-independent; the raw-prompt bug that made the model continue the document |
 | 7 | 2026-10-26 | [Arc Pro B60: 10.3×, after four separate blockers](diary/2026-10-26-arc-pro-b60-four-blockers-ten-x.md) | qwen4exp is not upstream, SYCL aborts, Vulkan works, 21.31 GB fits 21.4 GB by partial offload |
 | 8 | 2026-10-27 | [The G4 routing profile that overturned "dead weight"](diary/2026-10-27-g4-routing-profile-overturns-dead-weight.md) | +37% relative recruitment for reasoning, layers 13–26, and probes showing 2/8 EOS |
+| 9 | 2026-10-27 | [Ablation: the experts are load-bearing, and the damage is superlinear](diary/2026-10-27-ablation-experts-are-load-bearing.md) | +2.48% PPL from ablating 14 middle layers, +15.42% from all 40 — 2.2x the proportional prediction |
 
 ## Provenance
 
