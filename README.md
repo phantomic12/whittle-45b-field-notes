@@ -10,7 +10,7 @@ I went in expecting to find a battered but salvageable model and a heal worth pa
 time for. What I found instead was a model that is genuinely worse than its parent on the
 two axes its own model card sells (long-tail recall, arithmetic), genuinely better on one
 axis nobody advertised (long-context modelling), and carrying ~5.8 GB of experts whose
-marginal value is 31× lower per byte than the ones it shipped with — but not zero, which
+marginal value is an order of magnitude lower per byte than the ones it shipped with — but not zero, which
 took me three attempts and one wrong verdict to establish.
 
 Every number below is measured on this hardware. Where a result was later corrected, the
@@ -45,7 +45,7 @@ content sits in the wrong hidden space for this model.
 | Q2_K rejected | **+40.0% PPL** (7.4340 → 10.4041); 16.44 GB is not a usable size for this model |
 | Needle-in-haystack, 16K | **8/8 exact** at all four depths, on CPU *and* on an Intel Arc Pro B60 |
 | Arc Pro B60 throughput | 54.0 s/case vs 555 s CPU-only = **10.3×**; 21.31 GB model in 21.4 GB VRAM via partial offload (~17.8 GB resident, ~3.5 GB in RAM) |
-| Spliced experts, marginal cost | ablating all 76 costs **+0.27 nats**; ablating 76 *original* experts costs **+8.0** — a **31×** ratio |
+| Spliced experts, marginal cost | ablating all 76 costs **+0.268 PPL** (+0.038 nats); 76 *original* experts cost **+8.11 PPL** (+0.77 nats) — an order of magnitude per byte, and the damage is **4.9× worse on Q3_K_M than Q4_K at matched flags** |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
 
@@ -94,7 +94,7 @@ the index reflects what actually happened.
 | # | date | entry | what it settles |
 |---|---|---|---|
 | 1 | 2026-10-24 | [Anatomy: a 35B wearing 76 borrowed experts](diary/2026-10-24-anatomy-35b-plus-76-spliced-experts.md) | the splice, the parameter split, and four loader failures that all look like data problems |
-| 2 | 2026-10-25 | [First perplexity, and the "strictly dominated" claim I had to withdraw](diary/2026-10-25-perplexity-and-the-strictly-dominated-mistake.md) | ablation harness (+0.27 vs +8.0 nats), router rescaling falsified, k sweep, then the 4K measurement that killed my own verdict |
+| 2 | 2026-10-25 | [First perplexity, and the "strictly dominated" claim I had to withdraw](diary/2026-10-25-perplexity-and-the-strictly-dominated-mistake.md) | ablation harness (+0.268 vs +8.11 PPL), router rescaling falsified, k sweep, then the 4K measurement that killed my own verdict |
 | 3 | 2026-10-25 | [Long context is the one real advantage](diary/2026-10-25-long-context-the-one-real-advantage.md) | 13.1% → 25.4% → 21.0% gain from 4K to 32K, 35B degrades, 20 KB/token vs 98 KB for a dense 27B |
 | 4 | 2026-10-25 | [Serving bugs and a legitimate zero](diary/2026-10-25-serving-bugs-and-a-legitimate-zero.md) | empty-content bug on 3/6 creative prompts, GSM8K 1198/1319, MiMo 0/22 measured on real tests |
 | 5 | 2026-10-26 | [The quant ladder: Q2_K rejected, Q3_K_M shipped](diary/2026-10-26-quant-ladder-q2-rejected-q3-shipped.md) | +40% vs +8.7%, the 15.7% equal-size win at 16K, and the `chunks=1` vs `chunks=2` error that invalidated one point |
@@ -102,6 +102,7 @@ the index reflects what actually happened.
 | 7 | 2026-10-26 | [Arc Pro B60: 10.3×, after four separate blockers](diary/2026-10-26-arc-pro-b60-four-blockers-ten-x.md) | qwen4exp is not upstream, SYCL aborts, Vulkan works, 21.31 GB fits 21.4 GB by partial offload |
 | 8 | 2026-10-27 | [The G4 routing profile that overturned "dead weight"](diary/2026-10-27-g4-routing-profile-overturns-dead-weight.md) | +37% relative recruitment for reasoning, layers 13–26, and probes showing 2/8 EOS |
 | 9 | 2026-10-27 | [Ablation: the experts are load-bearing, and the damage is superlinear](diary/2026-10-27-ablation-experts-are-load-bearing.md) | +2.48% PPL from ablating 14 middle layers, +15.42% from all 40 — 2.2x the proportional prediction |
+| 10 | 2026-10-27 | [The harness was worth 5.3%, and the rest of the gap is real](diary/2026-10-27-harness-cost-5-percent-and-the-nats-label.md) | chunk count alone moves baseline +5.30%; at matched flags Q3_K_M damage is 4.9× Q4_K; and the "+0.27 nats" headline was PPL points — the nats ratio is 20.5×, not 31× |
 
 ## Provenance
 
@@ -110,6 +111,11 @@ and the JSON artefacts of the runs themselves. Nothing is estimated from a model
 nothing is extrapolated without saying so. Where a number in an early entry was later shown
 to be invalid, the entry says which one and why rather than being quietly edited — the error
 rate of my own measurement pipeline is part of the record.
+
+**Read the `--chunks` count before comparing any two perplexity numbers in this repo.**
+Averaging 2 windows instead of 24 moves the baseline by +5.3% on the same file, and moves an
+ablated model by +9.0%, so a mismatch between harnesses inflates a delta by ~1.26×. Every
+table states its flags; entry 10 is the measurement of what happens when they do not match.
 
 Hardware referenced throughout:
 
