@@ -106,6 +106,7 @@ the index reflects what actually happened.
 | 9 | 2026-10-27 | [Ablation: the experts are load-bearing, and the damage is superlinear](diary/2026-10-27-ablation-experts-are-load-bearing.md) | +2.48% PPL from ablating 14 middle layers, +15.42% from all 40 — 2.2x the proportional prediction |
 | 10 | 2026-10-27 | [The harness was worth 5.3%, and the rest of the gap is real](diary/2026-10-27-harness-cost-5-percent-and-the-nats-label.md) | chunk count alone moves baseline +5.30% — but its headline "4.9× worse on Q3_K_M" compared different *hardware*, not matched flags. **Superseded by entry 11 within the hour.** |
 | 11 | 2026-10-27 | [Q4_K is more damaged than Q3_K_M, not 4.9× less](diary/2026-10-27-q4k-is-more-damaged-than-q3-not-less.md) | at matched settings **Q4_K +17.44%** vs **Q3_K_M +15.42%** — quant level barely matters. Also: the original "+0.27 PPL, removable at no cost" was an `ngl=20` GPU number that does not reproduce on CPU (+1.30 PPL), so the "dead weight" verdict was wrong by ~5× |
+| 12 | 2026-10-28 | [The Spark host died on an unbounded load](diary/2026-10-28-the-spark-host-died-on-an-unbounded-load.md) | a booked training window is not a running process: the 45B bf16 load took the shared DGX Spark's Cloudflare tunnel down (1033/530 for both notebook *and* community inference) and the remaining booked hours burned at 4 W |
 
 ## Provenance
 
@@ -135,6 +136,7 @@ Hardware referenced throughout:
 | remediate-2 | i7-12700T, 20T | T1000 8 GB | CPU-only perplexity and NIAH, 20 threads |
 | garlic-clove | — | **Intel Arc Pro B60** (BMG G21, 21414 MiB) | Vulkan inference, 10.3× the CPU rate |
 | Colab G4 | — | 96 GB, 102 GB available | bf16 routing profile, 3.14 CU |
+| DGX Spark | 20 cores, GB10 | **121 GB unified** (118 available) | bf16 baseline + expert heal; 12 h/week, nightly window, `/workspace` persists |
 
 ## Status
 
