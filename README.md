@@ -48,7 +48,7 @@ content sits in the wrong hidden space for this model.
 | Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+23.1% PPL on Q4_K** and **+19.4% on Q3_K_M** (`--chunks 24`, CPU, one corpus) — the quant barely changes the damage (ratio 1.19×). At `--chunks 2` the same two cells read +17.4% and +15.4%: the harness, not the quant, is what moves this number. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
-| Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.39% PPL (z = −0.27)** and nothing moves down to 2.15 GB (entry 17). Row capacity is not load-bearing at 4K — collision cost of a real smaller table is untested |
+| Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.36% PPL on prose** (z = −0.25) but **+5.48% on a rare-token corpus** (z = +3.43, entry 19). Row capacity is not load-bearing on ordinary text and *is* load-bearing on the long-tail inputs the model card advertises — flat at 75% kept, then a jump, so the threshold sits in (75%, 50%] |
 
 ## What did not survive testing
 
@@ -116,6 +116,7 @@ the index reflects what actually happened.
 | 16 | 2026-10-28 | [CUDA on the Spark reproduces the grid to 0.06%, at 37×](diary/2026-10-28-cuda-on-the-spark-reproduces-the-grid.md) | upstream llama.cpp **already supports `qwen4exp`** (no fork needed); GGUF on GB10 with table on CPU = **4.76 s/pass vs ~175 on CPU**. Same flags, different silicon: **+19.42%** vs **+19.41%**, both z=11.8 — the headline delta is a property of the model, not the harness. Absolutes still differ **1.37%** (CUDA reads low), so ship deltas across machines, never absolutes |
 | 17 | 2026-10-28 | [Zeroing half the engram table costs nothing measurable](diary/2026-10-28-zeroing-half-the-engram-table-costs-nothing.md) | five-point capacity sweep at `--chunks 24`, CPU: keeping **50% of the 4.29 GB `per_layer_token_embd` reads 8.4769 ±0.08861 vs 8.5104 ±0.08909** baseline = **−0.39%, z = −0.27**. Nothing anywhere down to 2.15 GB, with a mild monotone trend toward *less* table that is not defensible as a gain. Zeroed rows keep addressing intact, so this bounds row capacity, **not** what a genuinely smaller (collision-heavy) table would score |
 | 18 | 2026-10-28 | [The table is live, the idle was me: 54% of accelerator time was wall clock](diary/2026-10-28-the-table-is-live-the-idle-was-me.md) | liveness check: zeroing **100%** of the table gives **PPL 43,348 vs 14.83**, so it is fully read and entry 17's flatness means "half-redundant", not "dead weight". Idle audit: a B60 grid cell is **574 s = load 26 s (4.5%) + compute 547 s**; GGUF mutation is **3.8 s/cell (0.7%)**; yet across four runs utilisation was **46%** with a single **9.3 h** gap — the waste is turnaround, not engineering. Also llama.cpp defaulted to **8 threads on 20**: `-t 20` is **31% faster**. B60 replaces the Spark for PPL: **6.75× CPU, matching to 0.006%** |
+| 19 | 2026-10-28 | [Rare tokens are where the engram table earns its keep](diary/2026-10-28-rare-tokens-are-where-the-engram-table-earns-its-keep.md) | entry 17's null was **the corpus, not the table**: same 2.15 GB deleted, **−0.36% on prose vs +5.48% on a rare-token corpus** (z = +3.43) — a 15× magnitude difference and a sign flip, so the table's rows carry real information exactly where the model card advertises it. Also: the harness is **bit-deterministic** (two intact and two 50% runs identical to 4 dp), so a rerun can never arbitrate a null — only a new corpus can; the curve is flat at 75% kept then jumps, so the threshold is in (75%, 50%] and unlocated. **And the provenance correction:** our measurement artefact matches *neither* hub revision (pre-heal `a679542` has the same byte count, different sha), so entries 5–18 measured a local requantisation — entry 16's "same size, so it came from the hub" was not a valid inference |
 
 ## Provenance
 
@@ -154,3 +155,10 @@ Hardware referenced throughout:
 Notes, not a release. The Q3_K_M artefact discussed in entries 5–7 is 21,310,671,776 bytes,
 sha256 `3544d1006133758118c8d8365b9a917e7e3060895012bbce643b4ef704eba824`, reproducible from
 the published Q4_K_M in 3.4 minutes with `llama-quantize --allow-requantize`.
+
+**It is a local requantisation, not the hub's Q3_K_M file.** Entry 19 checked: the hub's
+pre-heal revision `a679542` has the same 21,310,671,776 bytes but sha `d86cec54…43cc`, and
+HEAD (after the 11:02 UTC 2026-10-28 heal commit) is 21,310,673,216 bytes, sha `9f034b43…b731`.
+So every absolute perplexity in this repo describes a file that nobody downloads, and the
+internal deltas — which compare that file against a mutated copy of itself — are unaffected.
+Deployment claims still need re-measuring against the shipped file.
