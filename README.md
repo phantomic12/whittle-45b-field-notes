@@ -48,6 +48,7 @@ content sits in the wrong hidden space for this model.
 | Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+23.1% PPL on Q4_K** and **+19.4% on Q3_K_M** (`--chunks 24`, CPU, one corpus) — the quant barely changes the damage (ratio 1.19×). At `--chunks 2` the same two cells read +17.4% and +15.4%: the harness, not the quant, is what moves this number. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
+| Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.39% PPL (z = −0.27)** and nothing moves down to 2.15 GB (entry 17). Row capacity is not load-bearing at 4K — collision cost of a real smaller table is untested |
 
 ## What did not survive testing
 
@@ -71,11 +72,13 @@ prediction I made, and the measurement that killed it.
    **+17.4%**. The 30× inertness factor was a GPU-baseline artefact. On a CPU baseline with
    matched settings the spliced experts cost **+16%** perplexity to remove, on both 4-bit and
    3-bit. They are inefficient, not inert.
-5. **"The engram table is load-bearing."** Unsupported. Zeroing 50% of it moves PPL by
-   +0.06, inside a ±0.69 error bar. The dramatic 584,413 figure for zeroing 100% is a
-   numerical singularity in the PLE gate, not information loss — proven by an ablation of
-   the `hc_*` necks that returns PPL = 248,320, exactly the vocabulary size, i.e. a uniform
-   distribution over all tokens.
+5. **"The engram table is load-bearing."** Unsupported, now across five fractions rather than one.
+   Zeroing 50% of it moves PPL by +0.06, inside a ±0.69 error bar (entry 5); the full sweep in
+   entry 17 finds **−0.39% (z = −0.27) at 50% kept** and nothing measurable down to 2.15 GB, with a
+   mild trend toward *less* table that I do not defend as a gain. The dramatic 584,413 figure for
+   zeroing 100% is a numerical singularity in the PLE gate, not information loss — proven by an
+   ablation of the `hc_*` necks that returns PPL = 248,320, exactly the vocabulary size, i.e. a
+   uniform distribution over all tokens.
 6. **"k=16 buys long-tail recall."** Not at n=200. 8 gained / 5 lost, McNemar p=0.581,
    95% CI [-2.0%, +5.0%]. k is a confidence dial, not a knowledge dial. Ship k=8.
 7. **"ngl=20 is the GPU-layer ceiling."** Wrong — that came from `llama-bench`, which
@@ -111,6 +114,7 @@ the index reflects what actually happened.
 | 14 | 2026-10-28 | [The Spark can hold 132 GiB. The loader dies at 93.](diary/2026-10-28-the-box-holds-132gb-the-loader-dies-at-93.md) | capacity ruled out by measurement: 132 GiB of touched pages holds, 118 GiB synthetic alloc sequence holds, host uptime 18 d. Blames the 20 GB PLE concat. **Hypothesis falsified by entry 15.** |
 | 15 | 2026-10-28 | [Six kills: the file-backed table was not the fix](diary/2026-10-28-six-kills-and-the-table-was-not-the-problem.md) | file-backed 20 GB table loads correctly and still OOM-kills at 73%; peak pinned at ~93 GB across bf16/int8/any table strategy. **45B bf16 does not fit** — CUDA claims 130.7 GB of the same pool. Next step is llama.cpp CUDA + the GGUF, not more loader surgery |
 | 16 | 2026-10-28 | [CUDA on the Spark reproduces the grid to 0.06%, at 37×](diary/2026-10-28-cuda-on-the-spark-reproduces-the-grid.md) | upstream llama.cpp **already supports `qwen4exp`** (no fork needed); GGUF on GB10 with table on CPU = **4.76 s/pass vs ~175 on CPU**. Same flags, different silicon: **+19.42%** vs **+19.41%**, both z=11.8 — the headline delta is a property of the model, not the harness. Absolutes still differ **1.37%** (CUDA reads low), so ship deltas across machines, never absolutes |
+| 17 | 2026-10-28 | [Zeroing half the engram table costs nothing measurable](diary/2026-10-28-zeroing-half-the-engram-table-costs-nothing.md) | five-point capacity sweep at `--chunks 24`, CPU: keeping **50% of the 4.29 GB `per_layer_token_embd` reads 8.4769 ±0.08861 vs 8.5104 ±0.08909** baseline = **−0.39%, z = −0.27**. Nothing anywhere down to 2.15 GB, with a mild monotone trend toward *less* table that is not defensible as a gain. Zeroed rows keep addressing intact, so this bounds row capacity, **not** what a genuinely smaller (collision-heavy) table would score |
 
 ## Provenance
 
