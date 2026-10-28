@@ -45,7 +45,7 @@ content sits in the wrong hidden space for this model.
 | Q2_K rejected | **+40.0% PPL** (7.4340 → 10.4041); 16.44 GB is not a usable size for this model |
 | Needle-in-haystack, 16K | **8/8 exact** at all four depths, on CPU *and* on an Intel Arc Pro B60 |
 | Arc Pro B60 throughput | 54.0 s/case vs 555 s CPU-only = **10.3×**; 21.31 GB model in 21.4 GB VRAM via partial offload (~17.8 GB resident, ~3.5 GB in RAM) |
-| Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+17.4% PPL on Q4_K** and **+15.4% on Q3_K_M** — the quant barely changes the damage. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
+| Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+23.1% PPL on Q4_K** and **+19.4% on Q3_K_M** (`--chunks 24`, CPU, one corpus) — the quant barely changes the damage (ratio 1.19×). At `--chunks 2` the same two cells read +17.4% and +15.4%: the harness, not the quant, is what moves this number. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
 
@@ -107,6 +107,7 @@ the index reflects what actually happened.
 | 10 | 2026-10-27 | [The harness was worth 5.3%, and the rest of the gap is real](diary/2026-10-27-harness-cost-5-percent-and-the-nats-label.md) | chunk count alone moves baseline +5.30% — but its headline "4.9× worse on Q3_K_M" compared different *hardware*, not matched flags. **Superseded by entry 11 within the hour.** |
 | 11 | 2026-10-27 | [Q4_K is more damaged than Q3_K_M, not 4.9× less](diary/2026-10-27-q4k-is-more-damaged-than-q3-not-less.md) | at matched settings **Q4_K +17.44%** vs **Q3_K_M +15.42%** — quant level barely matters. Also: the original "+0.27 PPL, removable at no cost" was an `ngl=20` GPU number that does not reproduce on CPU (+1.30 PPL), so the "dead weight" verdict was wrong by ~5× |
 | 12 | 2026-10-28 | [The Spark host died on an unbounded load](diary/2026-10-28-the-spark-host-died-on-an-unbounded-load.md) | a booked training window is not a running process: the 45B bf16 load took the shared DGX Spark's Cloudflare tunnel down (1033/530 for both notebook *and* community inference) and the remaining booked hours burned at 4 W |
+| 13 | 2026-10-28 | [The 2×2 is complete: `--chunks 2` understates damage on both quants](diary/2026-10-28-the-2x2-is-complete-and-chunks-2-always-understates.md) | Q4_K at 24 chunks: **7.6957 → 9.4738 = +23.11%** (+0.208 nats, 13.9σ), not +17.44%. Both quants read low at `--chunks 2` (understating by 1.26× and 1.33×), so entry 10's "the harness inflated it" was true only for the file it tested. Quant-vs-quant ratio stays 1.13–1.19×: quant level barely matters |
 
 ## Provenance
 
@@ -119,8 +120,10 @@ rate of my own measurement pipeline is part of the record.
 **Read the `--chunks` count AND the `ngl` before comparing any two perplexity numbers in this
 repo.** Two effects, both measured on the same file:
 
-- `--chunks 2` vs `24` moves the baseline by +5.30% and an ablated model by +8.95%, inflating
-  a delta by ~1.26× (entry 10).
+- `--chunks 2` vs `24` moves the baseline by +5.30% (Q3_K_M) and +3.52% (Q4_K) — **both read
+  low** — and an ablated model by more than that, so the shipped harness *understates* an
+  ablation effect by 1.26× on Q3_K_M and 1.33× on Q4_K. Entry 10 claimed the opposite
+  direction from a single file; entry 13 is the 2×2 that corrects it.
 - `ngl=20` (GPU) vs `ngl=0` (CPU) moves the Q4_K baseline **6.6%** — larger than the ablation
   effect being measured. Entry 10 compared a GPU number to a CPU number and drew a 4.9×
   conclusion from it; entry 11 is the correction.
