@@ -57,7 +57,7 @@ def main():
     # cfg.hidden_size (2048) asks for 159.9 GB instead of 20.0 GB. Read it off the shard.
     import json as _json
     from safetensors import safe_open
-    wmap = _json.load(open(os.path.join(REPO, "model.safetensors.index.json")))["weight_map"]
+    wmap = _json.load(open(wl._local(REPO, "model.safetensors.index.json")))["weight_map"]
     shard_key = next(k for k in wmap if k.startswith("model.ngram_embedding.shard_"))
     with safe_open(wl._local(REPO, wmap[shard_key]), "pt") as f:
         dim = f.get_slice(shard_key).get_shape()[1]
