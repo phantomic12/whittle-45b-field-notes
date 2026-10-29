@@ -48,7 +48,8 @@ content sits in the wrong hidden space for this model.
 | Spliced experts, marginal cost | at matched settings on one box, ablating all 76 costs **+23.1% PPL on Q4_K** and **+19.4% on Q3_K_M** (`--chunks 24`, CPU, one corpus) — the quant barely changes the damage (ratio 1.19×). At `--chunks 2` the same two cells read +17.4% and +15.4%: the harness, not the quant, is what moves this number. 76 *original* experts cost **+8.11 PPL** on the earlier laptop run (see entry 11: the absolute figures from that run do not reproduce on CPU) |
 | …but they are not dead | GSM prompts route to them **+37% relative** more than name-recall prompts, concentrated in **layers 13–26** |
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
-| Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.36% PPL on prose** (z = −0.25) but **+5.48% on a rare-token corpus** (z = +3.43, entry 19). Row capacity is not load-bearing on ordinary text and *is* load-bearing on the long-tail inputs the model card advertises — flat at 75% kept, then a jump, so the threshold sits in (75%, 50%] |
+| Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.36% PPL on prose** (z = −0.25) but **+28.73% on a rare-token corpus** (z = +11.86, entry 20) — five times the +5.48% entry 19 first measured, because 19 ran on a local requantisation and 20 ran on the hub file. Row capacity is not load-bearing on ordinary text and *is* load-bearing on the long-tail inputs the model card advertises — flat at 62.5% and 56.25% kept, then a cliff, so the threshold sits in (56.25%, 50%]. The damage is concentrated: **two of 24 chunks account for most of it** (5.94× and 4.49×), 19 of 24 are within 1.23× |
+| Per-tensor SSM protection | **not worth its bytes.** Pinning `ssm_out`/`attn_gate` to q8_0 and `ssm_alpha`/`ssm_beta` to f16 costs **+245.4 MiB (+0.95%)** and moves PPL **+0.254%, z = +0.18** — indistinguishable from zero, in the wrong direction (entry 21). The control build is byte-identical to its source, so there is no requantisation confound |
 
 ## What did not survive testing
 
@@ -72,13 +73,15 @@ prediction I made, and the measurement that killed it.
    **+17.4%**. The 30× inertness factor was a GPU-baseline artefact. On a CPU baseline with
    matched settings the spliced experts cost **+16%** perplexity to remove, on both 4-bit and
    3-bit. They are inefficient, not inert.
-5. **"The engram table is load-bearing."** Unsupported, now across five fractions rather than one.
+5. **"The engram table is load-bearing."** Unsupported *on prose*, now across five fractions rather than one.
    Zeroing 50% of it moves PPL by +0.06, inside a ±0.69 error bar (entry 5); the full sweep in
    entry 17 finds **−0.39% (z = −0.27) at 50% kept** and nothing measurable down to 2.15 GB, with a
    mild trend toward *less* table that I do not defend as a gain. The dramatic 584,413 figure for
    zeroing 100% is a numerical singularity in the PLE gate, not information loss — proven by an
    ablation of the `hc_*` necks that returns PPL = 248,320, exactly the vocabulary size, i.e. a
-   uniform distribution over all tokens.
+   uniform distribution over all tokens. **Partly reinstated by entries 19–20:** on a corpus built
+   to fire the table, and on the file that is actually shipped, it is load-bearing at +28.73%. The
+   correction to this item is that the flat prose sweep was measuring the corpus, not the table.
 6. **"k=16 buys long-tail recall."** Not at n=200. 8 gained / 5 lost, McNemar p=0.581,
    95% CI [-2.0%, +5.0%]. k is a confidence dial, not a knowledge dial. Ship k=8.
 7. **"ngl=20 is the GPU-layer ceiling."** Wrong — that came from `llama-bench`, which
@@ -88,6 +91,17 @@ prediction I made, and the measurement that killed it.
    a port."** Wrong by a large factor. `transformers` 5.20.2 ships
    `models/qwen4_exp/modeling_qwen4_exp.py`, and the model repo ships `whittle_load.py`.
    The port I described as "days of work, high risk" does not exist as a prerequisite.
+9. **"A few fragile tensors are where a quant loses quality, so protect them."** Not here.
+   Pinning `ssm_out`/`attn_gate` to q8_0 and `ssm_alpha`/`ssm_beta` to f16 costs **+245.4 MiB**
+   and moves perplexity **+0.254% at z = +0.18** — inside the error bar and in the wrong
+   direction (entry 21). The fragility on this model sits in 9.56 B of spliced experts and a
+   9.99 B table, which together are 43% of the file; 245 MiB of small always-on tensors was
+   never the lever.
+10. **"Deleting table rows should cost damage in proportion to how many are deleted."** It
+    does not. A `frac^8` survival model predicted +0.39%, +1.35% and +3.98% at 37.5%, 43.75%
+    and 50% zeroed; measured **−0.46%, −0.44% and +28.73%** (entry 20). Monotone in structure,
+    wrong in sign at two points and 7.2× low at the third, because the real behaviour is a
+    threshold and the per-chunk vector shows the loss landing in **two chunks out of 24**.
 
 ## Diary index
 
@@ -117,6 +131,8 @@ the index reflects what actually happened.
 | 17 | 2026-10-28 | [Zeroing half the engram table costs nothing measurable](diary/2026-10-28-zeroing-half-the-engram-table-costs-nothing.md) | five-point capacity sweep at `--chunks 24`, CPU: keeping **50% of the 4.29 GB `per_layer_token_embd` reads 8.4769 ±0.08861 vs 8.5104 ±0.08909** baseline = **−0.39%, z = −0.27**. Nothing anywhere down to 2.15 GB, with a mild monotone trend toward *less* table that is not defensible as a gain. Zeroed rows keep addressing intact, so this bounds row capacity, **not** what a genuinely smaller (collision-heavy) table would score |
 | 18 | 2026-10-28 | [The table is live, the idle was me: 54% of accelerator time was wall clock](diary/2026-10-28-the-table-is-live-the-idle-was-me.md) | liveness check: zeroing **100%** of the table gives **PPL 43,348 vs 14.83**, so it is fully read and entry 17's flatness means "half-redundant", not "dead weight". Idle audit: a B60 grid cell is **574 s = load 26 s (4.5%) + compute 547 s**; GGUF mutation is **3.8 s/cell (0.7%)**; yet across four runs utilisation was **46%** with a single **9.3 h** gap — the waste is turnaround, not engineering. Also llama.cpp defaulted to **8 threads on 20**: `-t 20` is **31% faster**. B60 replaces the Spark for PPL: **6.75× CPU, matching to 0.006%** |
 | 19 | 2026-10-28 | [Rare tokens are where the engram table earns its keep](diary/2026-10-28-rare-tokens-are-where-the-engram-table-earns-its-keep.md) | entry 17's null was **the corpus, not the table**: same 2.15 GB deleted, **−0.36% on prose vs +5.48% on a rare-token corpus** (z = +3.43) — a 15× magnitude difference and a sign flip, so the table's rows carry real information exactly where the model card advertises it. Also: the harness is **bit-deterministic** (two intact and two 50% runs identical to 4 dp), so a rerun can never arbitrate a null — only a new corpus can; the curve is flat at 75% kept then jumps, so the threshold is in (75%, 50%] and unlocated. **And the provenance correction:** our measurement artefact matches *neither* hub revision (pre-heal `a679542` has the same byte count, different sha), so entries 5–18 measured a local requantisation — entry 16's "same size, so it came from the hub" was not a valid inference |
+| 20 | 2026-10-29 | [The knee is at 56.25%, and the shipped file costs 5.24× what entry 19 measured](diary/2026-10-29-the-knee-is-at-5625-and-the-shipped-file-costs-5x-more.md) | run on the **hub file `9f034b43`**, not our local requant: intact **10.2570 ±0.10294**, flat at 62.5% (−0.46%) and 56.25% (−0.44%) kept, then **13.2038 = +28.73%, z = +11.86** at 50%. So entry 19's +5.48% **understates the cost 5.24×** and the knee is in (56.25%, 50%], one step above where 19 left it. The `frac^8` knee model is falsified at all three points (−0.46/−0.44 vs +0.39/+1.35 predicted, then 7.2× too low). **Per-chunk vector: the damage is two chunks of 24** — chunks 1–7 read +0.99%, chunks 8–24 +42.3%, with chunk 8 at **5.94×** and chunk 18 at **4.49×** and 19 of 24 chunks ≤1.23×. Occupancy counted on both files and **ruled out as the mechanism**: every half of every head matches to 0.01 pp, and in both files the tail is as dense as the head (head 3 19.7%, head 4 99.3% — a 5× spread across heads) |
+| 21 | 2026-10-29 | [SSM and gate protection at q8_0 buys +0.25%, inside noise](diary/2026-10-29-ssm-protection-buys-nothing-measurable.md) | protecting `ssm_out`/`attn_gate` at q8_0 and `ssm_alpha`/`ssm_beta` at f16 costs **+245.4 MiB (+0.95%)** and moves PPL **7.6821 ±0.07722 → 7.7016 ±0.07745 = +0.254%, z = +0.18** — no effect detected, in the wrong direction. The control is **byte-identical to its source** (`f483b9dd`), so there is no requant confound. The lever that matters is still the experts: entry 13 measured **+23.11%** from ablating them at the same flags |
 
 ## Provenance
 
@@ -152,13 +168,21 @@ Hardware referenced throughout:
 
 ## Status
 
-Notes, not a release. The Q3_K_M artefact discussed in entries 5–7 is 21,310,671,776 bytes,
+Notes, not a release. The Q3_K_M artefact discussed in entries 5–19 is 21,310,671,776 bytes,
 sha256 `3544d1006133758118c8d8365b9a917e7e3060895012bbce643b4ef704eba824`, reproducible from
 the published Q4_K_M in 3.4 minutes with `llama-quantize --allow-requantize`.
 
 **It is a local requantisation, not the hub's Q3_K_M file.** Entry 19 checked: the hub's
 pre-heal revision `a679542` has the same 21,310,671,776 bytes but sha `d86cec54…43cc`, and
 HEAD (after the 11:02 UTC 2026-10-28 heal commit) is 21,310,673,216 bytes, sha `9f034b43…b731`.
-So every absolute perplexity in this repo describes a file that nobody downloads, and the
+So every absolute perplexity in entries 5–19 describes a file that nobody downloads, and the
 internal deltas — which compare that file against a mutated copy of itself — are unaffected.
 Deployment claims still need re-measuring against the shipped file.
+
+**Entry 20 is the first entry measured on the shipped file** (`9f034b43…b731`) rather than on
+the local requant, and it is a warning about how far that gap reaches: the same 2.15 GB table
+deletion costs **+5.48%** on our file and **+28.73%** on the hub's, a factor of 5.24, with the
+intact baselines only 2.59% apart. Byte count and architecture do not bound a behavioural
+difference. Treat every remaining figure here as a property of `3544d100…824` until it is
+re-run, and note that entry 20's per-chunk result suggests the *shape* of a damage curve
+matters as much as its mean.
