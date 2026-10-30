@@ -1,0 +1,200 @@
+{"i": 2, "prompt": "The capital of Kyrgyzstan is", "out": "Bishkek, a city that has a rich history and", "accept": ["Bishkek"], "ok": true}
+{"i": 0, "prompt": "The capital of Burkina Faso is", "out": "Ouagadougou, a city that serves as the", "accept": ["Ouagadougou"], "ok": true}
+{"i": 3, "prompt": "The capital of Tajikistan is", "out": "Dushanbe, a city that has served as the", "accept": ["Dushanbe"], "ok": true}
+{"i": 1, "prompt": "The capital of Kazakhstan is", "out": "Astana, which was renamed from Akmola in", "accept": ["Astana"], "ok": true}
+{"i": 5, "prompt": "The capital of Uzbekistan is", "out": "Tashkent.", "accept": ["Tashkent"], "ok": true}
+{"i": 6, "prompt": "The capital of Azerbaijan is", "out": "Baku.", "accept": ["Baku"], "ok": true}
+{"i": 7, "prompt": "The capital of Georgia is", "out": "Tbilisi, a city with a rich history and diverse", "accept": ["Tbilisi"], "ok": true}
+{"i": 4, "prompt": "The capital of Turkmenistan is", "out": "Ashgabat, a city that has a rich history and", "accept": ["Ashgabat", "Ashkhabad"], "ok": true}
+{"i": 8, "prompt": "The capital of Armenia is", "out": "Yerevan, a city with a rich history and a", "accept": ["Yerevan"], "ok": true}
+{"i": 9, "prompt": "The capital of Moldova is", "out": "Chisinau.", "accept": ["Chisinau", "Kishinev"], "ok": true}
+{"i": 10, "prompt": "The capital of Belarus is", "out": "Minsk.", "accept": ["Minsk"], "ok": true}
+{"i": 11, "prompt": "The capital of Lithuania is", "out": "Vilnius.", "accept": ["Vilnius"], "ok": true}
+{"i": 12, "prompt": "The capital of Latvia is", "out": "Riga.", "accept": ["Riga"], "ok": true}
+{"i": 13, "prompt": "The capital of Estonia is", "out": "Tallinn.", "accept": ["Tallinn"], "ok": true}
+{"i": 14, "prompt": "The capital of Slovenia is", "out": "Ljubljana.", "accept": ["Ljubljana"], "ok": true}
+{"i": 15, "prompt": "The capital of Slovakia is", "out": "Bratislava.", "accept": ["Bratislava"], "ok": true}
+{"i": 16, "prompt": "The capital of Croatia is", "out": "Zagreb, a city that has a rich history and cultural", "accept": ["Zagreb"], "ok": true}
+{"i": 17, "prompt": "The capital of Serbia is", "out": "Belgrade.", "accept": ["Belgrade"], "ok": true}
+{"i": 18, "prompt": "The capital of Montenegro is", "out": "Podgorica, which is also the largest city in the", "accept": ["Podgorica"], "ok": true}
+{"i": 19, "prompt": "The capital of Albania is", "out": "Tirana.", "accept": ["Tirana"], "ok": true}
+{"i": 20, "prompt": "The capital of Bulgaria is", "out": "Sofia.", "accept": ["Sofia"], "ok": true}
+{"i": 21, "prompt": "The capital of Romania is", "out": "Bucharest.", "accept": ["Bucharest"], "ok": true}
+{"i": 22, "prompt": "The capital of Tanzania is", "out": "Dodoma, which has been the official capital since 1", "accept": ["Dodoma"], "ok": true}
+{"i": 23, "prompt": "The capital of Madagascar is", "out": "Antananarivo, a city that has served as the", "accept": ["Antananarivo"], "ok": true}
+{"i": 24, "prompt": "The capital of Mauritania is", "out": "Nouakchott, a coastal city situated on the Atlantic", "accept": ["Nouakchott"], "ok": true}
+{"i": 25, "prompt": "The capital of Mali is", "out": "Bamako, a city that serves as the political, economic", "accept": ["Bamako"], "ok": true}
+{"i": 26, "prompt": "The capital of Niger is", "out": "Niamey, a city situated on the banks of the", "accept": ["Niamey"], "ok": true}
+{"i": 27, "prompt": "The capital of Chad is", "out": "N'Djamena, a city located in the western part", "accept": ["N'Djamena", "Ndjamena"], "ok": true}
+{"i": 28, "prompt": "The capital of Sudan is", "out": "Khartoum, a city that serves as the political", "accept": ["Khartoum"], "ok": true}
+{"i": 29, "prompt": "The capital of Eritrea is", "out": "Asmara, a city that has a rich history and cultural", "accept": ["Asmara"], "ok": true}
+{"i": 31, "prompt": "The capital of Somalia is", "out": "Mogadishu.", "accept": ["Mogadishu"], "ok": true}
+{"i": 30, "prompt": "The capital of Djibouti is", "out": "the city of Djibouti, which is also the", "accept": ["Djibouti"], "ok": true}
+{"i": 33, "prompt": "The capital of Burundi is", "out": "Bujumbura.", "accept": ["Gitega", "Bujumbura"], "ok": true}
+{"i": 32, "prompt": "The capital of Rwanda is", "out": "Kigali.", "accept": ["Kigali"], "ok": true}
+{"i": 34, "prompt": "The capital of Malawi is", "out": "Lilongwe, a city that has served as the nation", "accept": ["Lilongwe"], "ok": true}
+{"i": 35, "prompt": "The capital of Zambia is", "out": "Lusaka, which is also the largest city in the country", "accept": ["Lusaka"], "ok": true}
+{"i": 36, "prompt": "The capital of Botswana is", "out": "Gaborone, a city that has grown rapidly since its", "accept": ["Gaborone"], "ok": true}
+{"i": 37, "prompt": "The capital of Namibia is", "out": "Windhoek, a city that serves as the political and administrative", "accept": ["Windhoek"], "ok": true}
+{"i": 38, "prompt": "The capital of Lesotho is", "out": "Maseru, a city that serves as the political and", "accept": ["Maseru"], "ok": true}
+{"i": 39, "prompt": "The capital of Eswatini is", "out": "Mbabane, which is also the largest city in the", "accept": ["Mbabane"], "ok": true}
+{"i": 40, "prompt": "The capital of Mozambique is", "out": "Maputo, a city that has a rich history and a", "accept": ["Maputo"], "ok": true}
+{"i": 41, "prompt": "The capital of Angola is", "out": "Luanda, a city that has a rich history and a", "accept": ["Luanda"], "ok": true}
+{"i": 42, "prompt": "The capital of Gabon is", "out": "Libreville, a coastal city situated on the Atlantic Ocean", "accept": ["Libreville"], "ok": true}
+{"i": 43, "prompt": "The capital of Cameroon is", "out": "Yaound\u00e9, a city that serves as the political and", "accept": ["Yaounde", "Yaound\u00e9"], "ok": true}
+{"i": 44, "prompt": "The capital of Benin is", "out": "Porto-Novo, but Cotonou is the largest city", "accept": ["Porto-Novo"], "ok": true}
+{"i": 45, "prompt": "The capital of Togo is", "out": "Lom\u00e9.", "accept": ["Lome", "Lom\u00e9"], "ok": true}
+{"i": 46, "prompt": "The capital of Guinea is", "out": "Conakry, a coastal city situated on the Atlantic Ocean", "accept": ["Conakry"], "ok": true}
+{"i": 47, "prompt": "The capital of Senegal is", "out": "Dakar.", "accept": ["Dakar"], "ok": true}
+{"i": 49, "prompt": "The capital of Nepal is", "out": "Kathmandu, a city that serves as the country's", "accept": ["Kathmandu"], "ok": true}
+{"i": 48, "prompt": "The capital of Bhutan is", "out": "Thimphu.", "accept": ["Thimphu"], "ok": true}
+{"i": 50, "prompt": "The capital of Laos is", "out": "Vientiane, a city that serves as the political,", "accept": ["Vientiane"], "ok": true}
+{"i": 51, "prompt": "The capital of Cambodia is", "out": "Phnom Penh.", "accept": ["Phnom Penh"], "ok": true}
+{"i": 52, "prompt": "The capital of Myanmar is", "out": "Naypyidaw, which was established in 20", "accept": ["Naypyidaw", "Nay Pyi Taw"], "ok": true}
+{"i": 53, "prompt": "The capital of Sri Lanka is", "out": "Sri Jayawardenepura Kotte, but Colombo is", "accept": ["Sri Jayawardenepura", "Colombo"], "ok": true}
+{"i": 54, "prompt": "The capital of the Maldives is", "out": "Mal\u00e9, a city that serves as the country's political", "accept": ["Male", "Mal\u00e9"], "ok": true}
+{"i": 55, "prompt": "The capital of Mongolia is", "out": "Ulaanbaatar, which is also the largest city", "accept": ["Ulaanbaatar", "Ulan Bator"], "ok": true}
+{"i": 57, "prompt": "The capital of Fiji is", "out": "Suva, located on the southeastern coast of Viti Lev", "accept": ["Suva"], "ok": true}
+{"i": 56, "prompt": "The capital of Papua New Guinea is", "out": "Port Moresby.", "accept": ["Port Moresby"], "ok": true}
+{"i": 58, "prompt": "The capital of Vanuatu is", "out": "Port Vila, located on the island of Efate. Port", "accept": ["Port Vila"], "ok": true}
+{"i": 59, "prompt": "The capital of Samoa is", "out": "Apia.", "accept": ["Apia"], "ok": true}
+{"i": 60, "prompt": "The capital of Tonga is", "out": "Nuku'alofa, a city situated on the island", "accept": ["Nuku'alofa"], "ok": true}
+{"i": 61, "prompt": "The capital of Suriname is", "out": "Paramaribo.", "accept": ["Paramaribo"], "ok": true}
+{"i": 62, "prompt": "The capital of Guyana is", "out": "Georgetown.", "accept": ["Georgetown"], "ok": true}
+{"i": 63, "prompt": "The capital of Belize is", "out": "Belmopan, which is located in the central part of", "accept": ["Belmopan"], "ok": true}
+{"i": 64, "prompt": "The capital of Honduras is", "out": "Tegucigalpa, a city that serves as the", "accept": ["Tegucigalpa"], "ok": true}
+{"i": 65, "prompt": "The capital of Nicaragua is", "out": "Managua, which is also the largest city in the country", "accept": ["Managua"], "ok": true}
+{"i": 66, "prompt": "The capital of El Salvador is", "out": "San Salvador.", "accept": ["San Salvador"], "ok": true}
+{"i": 67, "prompt": "The capital of Costa Rica is", "out": "San Jos\u00e9, a city that serves as the political, economic", "accept": ["San Jose", "San Jos\u00e9"], "ok": true}
+{"i": 68, "prompt": "The capital of Panama is", "out": "Panama City, which is located on the Pacific coast. The", "accept": ["Panama City"], "ok": true}
+{"i": 69, "prompt": "The capital of Ecuador is", "out": "Quito, which is located in the Andes Mountains at", "accept": ["Quito"], "ok": true}
+{"i": 70, "prompt": "The capital of Bolivia is", "out": "La Paz, which is located at an elevation of 3", "accept": ["Sucre", "La Paz"], "ok": true}
+{"i": 71, "prompt": "The capital of Paraguay is", "out": "Asunci\u00f3n, which is also the largest city in the country", "accept": ["Asuncion", "Asunci\u00f3n"], "ok": true}
+{"i": 72, "prompt": "The capital of Uruguay is", "out": "Montevideo.", "accept": ["Montevideo"], "ok": true}
+{"i": 73, "prompt": "The capital of Morocco is", "out": "Rabat, a city that has a rich history and a", "accept": ["Rabat"], "ok": true}
+{"i": 74, "prompt": "The capital of Tunisia is", "out": "Tunis, a city that has been the political and economic center", "accept": ["Tunis"], "ok": true}
+{"i": 75, "prompt": "The capital of Libya is", "out": "Tripoli, a city with a rich history and diverse cultural", "accept": ["Tripoli"], "ok": true}
+{"i": 77, "prompt": "The capital of Lebanon is", "out": "Beirut.", "accept": ["Beirut"], "ok": true}
+{"i": 76, "prompt": "The capital of Jordan is", "out": "Amman.", "accept": ["Amman"], "ok": true}
+{"i": 78, "prompt": "The capital of Syria is", "out": "Damascus, a city with a rich history and cultural significance.", "accept": ["Damascus"], "ok": true}
+{"i": 79, "prompt": "The capital of Yemen is", "out": "Sanaa.", "accept": ["Sanaa", "Sana'a"], "ok": true}
+{"i": 80, "prompt": "The capital of Oman is", "out": "Muscat, a city that serves as the country's political", "accept": ["Muscat"], "ok": true}
+{"i": 81, "prompt": "The capital of Qatar is", "out": "Doha, a city that has undergone significant transformation over the", "accept": ["Doha"], "ok": true}
+{"i": 82, "prompt": "The capital of Bahrain is", "out": "Manama, a city that serves as the country's political", "accept": ["Manama"], "ok": true}
+{"i": 83, "prompt": "The capital of Kuwait is", "out": "Kuwait City, which is also the largest city in the country", "accept": ["Kuwait City"], "ok": true}
+{"i": 85, "prompt": "The author of The Old Man and the Sea is", "out": "A. Ernest Hemingway", "accept": ["Hemingway"], "ok": true}
+{"i": 86, "prompt": "The author of Crime and Punishment is", "out": ":", "accept": ["Dostoevsky", "Dostoyevsky"], "ok": false}
+{"i": 84, "prompt": "The author of One Hundred Years of Solitude is", "out": ":", "accept": ["Garcia", "Garc\u00eda", "Marquez"], "ok": false}
+{"i": 87, "prompt": "The author of Things Fall Apart is", "out": "A. Chinua Achebe", "accept": ["Achebe"], "ok": true}
+{"i": 89, "prompt": "The author of Moby-Dick is", "out": ":", "accept": ["Melville"], "ok": false}
+{"i": 90, "prompt": "The author of War and Peace is", "out": ":", "accept": ["Tolstoy", "Tolstoi"], "ok": false}
+{"i": 88, "prompt": "The author of Pride and Prejudice is", "out": "Jane Austen.", "accept": ["Austen"], "ok": true}
+{"i": 91, "prompt": "The author of The Trial is", "out": ":", "accept": ["Kafka"], "ok": false}
+{"i": 92, "prompt": "The author of Ulysses is", "out": ":", "accept": ["Joyce"], "ok": false}
+{"i": 93, "prompt": "The author of In Search of Lost Time is", "out": ":", "accept": ["Proust"], "ok": false}
+{"i": 94, "prompt": "The author of Don Quixote is", "out": ":", "accept": ["Cervantes"], "ok": false}
+{"i": 95, "prompt": "The author of The Divine Comedy is", "out": ":", "accept": ["Dante"], "ok": false}
+{"i": 97, "prompt": "The author of Frankenstein is", "out": "Mary Shelley.", "accept": ["Shelley"], "ok": true}
+{"i": 96, "prompt": "The author of The Odyssey is", "out": ":", "accept": ["Homer"], "ok": false}
+{"i": 98, "prompt": "The author of Dracula is", "out": ":", "accept": ["Stoker"], "ok": false}
+{"i": 99, "prompt": "The author of The Picture of Dorian Gray is", "out": ":", "accept": ["Wilde"], "ok": false}
+{"i": 100, "prompt": "The author of Beloved is", "out": ":", "accept": ["Morrison", "Toni"], "ok": false}
+{"i": 101, "prompt": "The author of Midnight's Children is", "out": ":", "accept": ["Rushdie"], "ok": false}
+{"i": 102, "prompt": "The author of The Handmaid's Tale is", "out": ":", "accept": ["Atwood"], "ok": false}
+{"i": 103, "prompt": "The author of Neuromancer is", "out": ":", "accept": ["Gibson", "William"], "ok": false}
+{"i": 104, "prompt": "The painter of the Sistine Chapel ceiling is", "out": ":", "accept": ["Michelangelo"], "ok": false}
+{"i": 105, "prompt": "The painter of The Persistence of Memory is", "out": ":", "accept": ["Dali", "Dal\u00ed"], "ok": false}
+{"i": 106, "prompt": "The painter of Guernica is", "out": ":", "accept": ["Picasso"], "ok": false}
+{"i": 107, "prompt": "The painter of The Starry Night is", "out": "Vincent van Gogh.", "accept": ["Gogh", "Van Gogh"], "ok": true}
+{"i": 110, "prompt": "The painter of The Scream is", "out": "Edvard Munch.", "accept": ["Munch"], "ok": true}
+{"i": 109, "prompt": "The painter of The Last Supper is", "out": ":", "accept": ["Leonardo", "da Vinci"], "ok": false}
+{"i": 108, "prompt": "The painter of The Birth of Venus is", "out": ":", "accept": ["Botticelli"], "ok": false}
+{"i": 111, "prompt": "The painter of Girl with a Pearl Earring is", "out": ":", "accept": ["Vermeer"], "ok": false}
+{"i": 113, "prompt": "The sculptor of David is", "out": "Michelangelo.", "accept": ["Michelangelo", "Bernini"], "ok": true}
+{"i": 112, "prompt": "The sculptor of The Thinker is", "out": "Auguste Rodin.", "accept": ["Rodin"], "ok": true}
+{"i": 114, "prompt": "The composer of The Magic Flute is", "out": ":", "accept": ["Mozart"], "ok": false}
+{"i": 115, "prompt": "The composer of The Rite of Spring is", "out": ":", "accept": ["Stravinsky"], "ok": false}
+{"i": 117, "prompt": "The composer of The Four Seasons is", "out": ":", "accept": ["Vivaldi"], "ok": false}
+{"i": 118, "prompt": "The composer of Messiah is", "out": "The composer of the famous oratorio *Messiah*", "accept": ["Handel", "H\u00e4ndel"], "ok": false}
+{"i": 119, "prompt": "The composer of Swan Lake is", "out": "The composer of the ballet *Swan Lake* is", "accept": ["Tchaikovsky"], "ok": false}
+{"i": 116, "prompt": "The composer of the Ninth Symphony is", "out": ":", "accept": ["Beethoven"], "ok": false}
+{"i": 121, "prompt": "The composer of Bolero is", "out": "The composer of *Bolero* is **Maur", "accept": ["Ravel"], "ok": false}
+{"i": 120, "prompt": "The composer of Rhapsody in Blue is", "out": "The composer of *Rhapsody in Blue* is", "accept": ["Gershwin"], "ok": false}
+{"i": 123, "prompt": "The scientist who discovered penicillin was", "out": "A. Alexander Fleming", "accept": ["Fleming"], "ok": true}
+{"i": 122, "prompt": "The scientist who proposed the uncertainty principle was", "out": ":", "accept": ["Heisenberg"], "ok": false}
+{"i": 126, "prompt": "The scientist who discovered radium was", "out": "A. Marie Curie", "accept": ["Curie"], "ok": true}
+{"i": 124, "prompt": "The mathematician who proved Fermat's Last Theorem was", "out": ":", "accept": ["Wiles"], "ok": false}
+{"i": 127, "prompt": "The scientist who proposed the laws of planetary motion was", "out": ":", "accept": ["Kepler"], "ok": false}
+{"i": 125, "prompt": "The scientist who proposed the theory of general relativity was", "out": ":", "accept": ["Einstein"], "ok": false}
+{"i": 128, "prompt": "The scientist who discovered the electron was", "out": "A. Rutherford", "accept": ["Thomson", "J.J."], "ok": false}
+{"i": 130, "prompt": "The naturalist who proposed evolution by natural selection was", "out": ":", "accept": ["Darwin"], "ok": false}
+{"i": 129, "prompt": "The scientist who first described the circulation of blood was", "out": ":", "accept": ["Harvey"], "ok": false}
+{"i": 131, "prompt": "The monk who founded the study of genetics was", "out": ":", "accept": ["Mendel"], "ok": false}
+{"i": 132, "prompt": "The metal with symbol W is", "out": "A. tungsten", "accept": ["tungsten", "wolfram"], "ok": true}
+{"i": 134, "prompt": "The element with atomic number 47 is", "out": "silver (Ag). Its ground-state electron configuration is [Kr", "accept": ["silver", "Ag"], "ok": true}
+{"i": 133, "prompt": "The element with atomic number 79 is", "out": "gold.", "accept": ["gold", "Au"], "ok": true}
+{"i": 135, "prompt": "The element with atomic number 26 is", "out": "iron (Fe). Its ground-state electron configuration is [Ar", "accept": ["iron", "Fe"], "ok": true}
+{"i": 136, "prompt": "The element with atomic number 82 is", "out": "lead (Pb). Its most common isotope has a", "accept": ["lead", "Pb"], "ok": true}
+{"i": 137, "prompt": "The element with atomic number 80 is", "out": "mercury (Hg). Its ground-state electron configuration is [Xe", "accept": ["mercury", "Hg"], "ok": true}
+{"i": 138, "prompt": "The element with symbol Sn is", "out": "A. Tin", "accept": ["tin"], "ok": true}
+{"i": 139, "prompt": "The element with symbol Sb is", "out": "A. antimony", "accept": ["antimony"], "ok": true}
+{"i": 140, "prompt": "The element with symbol K is", "out": "A. potassium", "accept": ["potassium"], "ok": true}
+{"i": 141, "prompt": "The element with symbol Na is", "out": "A. Nitrogen", "accept": ["sodium"], "ok": false}
+{"i": 142, "prompt": "The currency of Mongolia is the", "out": "T\u00f6gr\u00f6g (MNT), which is divided into", "accept": ["tugrik", "tugrug", "t\u00f6gr\u00f6g"], "ok": true}
+{"i": 143, "prompt": "The currency of Vietnam is the", "out": "Vietnamese dong (VND), which is divided into 1", "accept": ["dong"], "ok": true}
+{"i": 144, "prompt": "The currency of Poland is the", "out": "zloty (PLN), which is divided into", "accept": ["zloty", "z\u0142oty"], "ok": true}
+{"i": 145, "prompt": "The currency of Hungary is the", "out": "forint (HUF). The forint is divided into 1", "accept": ["forint"], "ok": true}
+{"i": 146, "prompt": "The currency of Thailand is the", "out": "baht (THB). The baht is divided into", "accept": ["baht"], "ok": true}
+{"i": 147, "prompt": "The currency of Israel is the", "out": "New Shekel (NIS), which is divided into 1", "accept": ["shekel"], "ok": true}
+{"i": 148, "prompt": "The currency of Turkey is the", "out": "Turkish lira (TRY), which is divided into 10", "accept": ["lira"], "ok": true}
+{"i": 149, "prompt": "The currency of Brazil is the", "out": "real (plural reais). The symbol for the real is R", "accept": ["real"], "ok": true}
+{"i": 151, "prompt": "The currency of Nigeria is the", "out": "naira (\u20a6), which is divided into 1", "accept": ["naira"], "ok": true}
+{"i": 150, "prompt": "The currency of South Africa is the", "out": "rand (ZAR), which is divided into 10", "accept": ["rand"], "ok": true}
+{"i": 152, "prompt": "The currency of Kenya is the", "out": "Kenyan Shilling (KES), which is divided into", "accept": ["shilling"], "ok": true}
+{"i": 153, "prompt": "The currency of Ghana is the", "out": "cedi (GHS), which is divided into 1", "accept": ["cedi"], "ok": true}
+{"i": 154, "prompt": "The currency of Ethiopia is the", "out": "birr, which is divided into 100 cents", "accept": ["birr"], "ok": true}
+{"i": 155, "prompt": "The currency of Morocco is the", "out": "Moroccan dirham (MAD), which is divided into", "accept": ["dirham"], "ok": true}
+{"i": 156, "prompt": "The currency of Kazakhstan is the", "out": "tenge, which is divided into 100 ti", "accept": ["tenge"], "ok": true}
+{"i": 157, "prompt": "The river that flows through Baghdad is the", "out": "Tigris, one of the two major rivers that define", "accept": ["Tigris"], "ok": true}
+{"i": 158, "prompt": "The river that flows through Vienna is the", "out": "Danube. The Danube is the second-longest river", "accept": ["Danube"], "ok": true}
+{"i": 159, "prompt": "The river that flows through Cairo is the", "out": "Nile, which is the longest river in the world. The", "accept": ["Nile"], "ok": true}
+{"i": 161, "prompt": "The river that flows through Paris is the", "out": "Seine. The Seine is a river in northern France. It", "accept": ["Seine"], "ok": true}
+{"i": 160, "prompt": "The river that flows through Rome is the", "out": "Tiber, which is the third-longest river in Italy", "accept": ["Tiber"], "ok": true}
+{"i": 162, "prompt": "The river that flows through London is the", "out": "Thames. The Thames is a river in England that flows through", "accept": ["Thames"], "ok": true}
+{"i": 163, "prompt": "The river that flows through Moscow is the", "out": "__________.", "accept": ["Moskva", "Moscow"], "ok": false}
+{"i": 165, "prompt": "The largest desert in the world is the", "out": "Sahara, which covers an area of 9.2 million", "accept": ["Antarctic", "Sahara"], "ok": true}
+{"i": 164, "prompt": "The mountain range separating Europe from Asia is the", "out": "Ural Mountains. The Ural Mountains are a mountain range", "accept": ["Ural", "Urals"], "ok": true}
+{"i": 167, "prompt": "The highest mountain in Africa is", "out": "Mount Kilimanjaro, located in Tanzania. It stands", "accept": ["Kilimanjaro"], "ok": true}
+{"i": 166, "prompt": "The deepest lake in the world is", "out": "Lake Baikal, located in Siberia, Russia. It", "accept": ["Baikal"], "ok": true}
+{"i": 169, "prompt": "The longest river in Asia is the", "out": "Yangtze River, which is also the third-longest", "accept": ["Yangtze", "Yangtse"], "ok": true}
+{"i": 168, "prompt": "The highest mountain in South America is", "out": "Aconcagua, located in Argentina. It stands at", "accept": ["Aconcagua"], "ok": true}
+{"i": 170, "prompt": "The largest island in the world is", "out": "Greenland, which is located in the North Atlantic Ocean. Greenland", "accept": ["Greenland"], "ok": true}
+{"i": 171, "prompt": "The sea between Europe and Africa is the", "out": "Mediterranean Sea. The Mediterranean Sea is a large body of water", "accept": ["Mediterranean"], "ok": true}
+{"i": 172, "prompt": "The strait between Spain and Morocco is the", "out": "Strait of Gibraltar. It connects the Atlantic Ocean to the Mediterranean", "accept": ["Gibraltar"], "ok": true}
+{"i": 173, "prompt": "The canal connecting the Mediterranean and the Red Sea is the", "out": "Suez Canal. It is located in Egypt and was completed", "accept": ["Suez"], "ok": true}
+{"i": 175, "prompt": "The planet with the most moons is", "out": "A. Jupiter", "accept": ["Saturn", "Jupiter"], "ok": true}
+{"i": 174, "prompt": "The ocean between Africa and Australia is the", "out": "Indian Ocean. The Indian Ocean is the third largest of the", "accept": ["Indian"], "ok": true}
+{"i": 176, "prompt": "The largest planet in the solar system is", "out": "Jupiter. It is 11 times wider than Earth.", "accept": ["Jupiter"], "ok": true}
+{"i": 177, "prompt": "The planet closest to the sun is", "out": "A. Mercury", "accept": ["Mercury"], "ok": true}
+{"i": 178, "prompt": "The first person to walk on the moon was", "out": "Neil Armstrong, an American astronaut. He stepped onto the lunar", "accept": ["Armstrong"], "ok": true}
+{"i": 179, "prompt": "The telescope launched in 1990 is the", "out": "largest and most powerful space telescope ever built.", "accept": ["Hubble"], "ok": false}
+{"i": 181, "prompt": "The country with the largest population is", "out": "India, with a population of 1.4 billion people", "accept": ["India", "China"], "ok": true}
+{"i": 180, "prompt": "The language with the most native speakers is", "out": "Mandarin Chinese, with approximately 920 million speakers.", "accept": ["Mandarin", "Chinese"], "ok": true}
+{"i": 182, "prompt": "The smallest country in the world is", "out": "Vatican City, with an area of 0.44", "accept": ["Vatican"], "ok": true}
+{"i": 183, "prompt": "The largest country by area is", "out": "Russia, spanning 17,098,2", "accept": ["Russia"], "ok": true}
+{"i": 184, "prompt": "The official language of Brazil is", "out": "Portuguese, which is spoken by the vast majority of the population", "accept": ["Portuguese"], "ok": true}
+{"i": 185, "prompt": "The official language of Egypt is", "out": "Arabic, which is spoken by the majority of the population.", "accept": ["Arabic"], "ok": true}
+{"i": 186, "prompt": "The study of earthquakes is called", "out": ":", "accept": ["seismology"], "ok": false}
+{"i": 187, "prompt": "The study of birds is called", "out": "ornithology. Ornithology is a branch of zo", "accept": ["ornithology"], "ok": true}
+{"i": 188, "prompt": "The fear of heights is called", "out": "acrophobia. It is a common phobia that affects", "accept": ["acrophobia"], "ok": true}
+{"i": 189, "prompt": "The chemical symbol for table salt is", "out": "NaCl. What does the \"Na\" represent?", "accept": ["NaCl"], "ok": true}
+{"i": 190, "prompt": "The hardest natural substance is", "out": ":", "accept": ["diamond"], "ok": false}
+{"i": 191, "prompt": "The gas most abundant in Earth's atmosphere is", "out": ":", "accept": ["nitrogen"], "ok": false}
+{"i": 192, "prompt": "The inventor of the telephone was", "out": "Alexander Graham Bell.", "accept": ["Bell", "Alexander Graham"], "ok": true}
+{"i": 193, "prompt": "The inventor of the light bulb was", "out": "A. Thomas Edison", "accept": ["Edison"], "ok": true}
+{"i": 194, "prompt": "The person who formulated the laws of motion was", "out": ":", "accept": ["Newton"], "ok": false}
+{"i": 195, "prompt": "The first president of the United States was", "out": "George Washington. He was born on February 22,", "accept": ["Washington"], "ok": true}
+{"i": 197, "prompt": "The Second World War ended in", "out": "1945, and the Cold War began.", "accept": ["1945"], "ok": true}
+{"i": 196, "prompt": "The wall separating East and West Berlin fell in", "out": "1989, and the two Germanys were", "accept": ["1989"], "ok": true}
+{"i": 198, "prompt": "The French Revolution began in", "out": "1789, and the Reign of Terror,", "accept": ["1789"], "ok": true}
+{"i": 199, "prompt": "The Magna Carta was signed in", "out": "1215 by King John of England.", "accept": ["1215"], "ok": true}

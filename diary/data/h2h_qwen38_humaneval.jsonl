@@ -1,0 +1,164 @@
+{"task_id": "HumanEval/3", "ok": false, "ctok": 343, "why": ":\n  File \"/tmp/tmp65576lik.py\", line 4, in <module>\n    def below_zero(operations: List[int]) -> bool:\n                               ^^^^\nNameError: name 'List' is not defined. Did you mean: 'list'?\n"}
+{"task_id": "HumanEval/2", "ok": true, "ctok": 436, "why": "PASS\n"}
+{"task_id": "HumanEval/0", "ok": true, "ctok": 595, "why": "PASS\n"}
+{"task_id": "HumanEval/4", "ok": false, "ctok": 338, "why": "2x5.py\", line 4, in <module>\n    def mean_absolute_deviation(numbers: List[float]) -> float:\n                                         ^^^^\nNameError: name 'List' is not defined. Did you mean: 'list'?\n"}
+{"task_id": "HumanEval/5", "ok": true, "ctok": 459, "why": "PASS\n"}
+{"task_id": "HumanEval/1", "ok": false, "ctok": 1024, "why": "separate_paren_groups)\n  File \"/tmp/tmpzo_ij494.py\", line 26, in check\n    assert candidate('(()()) ((())) () ((())()())') == [\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/7", "ok": false, "ctok": 365, "why": "ine 4, in <module>\n    def filter_by_substring(strings: List[str], substring: str) -> List[str]:\n                                     ^^^^\nNameError: name 'List' is not defined. Did you mean: 'list'?\n"}
+{"task_id": "HumanEval/8", "ok": false, "ctok": 214, "why": "e \"/tmp/tmpz68zlkvp.py\", line 4, in <module>\n    def sum_product(numbers: List[int]) -> Tuple[int, int]:\n                             ^^^^\nNameError: name 'List' is not defined. Did you mean: 'list'?\n"}
+{"task_id": "HumanEval/6", "ok": true, "ctok": 709, "why": "PASS\n"}
+{"task_id": "HumanEval/12", "ok": true, "ctok": 369, "why": "PASS\n"}
+{"task_id": "HumanEval/9", "ok": false, "ctok": 1024, "why": "\n  File \"/tmp/tmpsfkert0f.py\", line 29, in <module>\n    check(rolling_max)\n  File \"/tmp/tmpsfkert0f.py\", line 24, in check\n    assert candidate([]) == []\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/10", "ok": false, "ctok": 1024, "why": "ile \"/tmp/tmpwgiy7nbz.py\", line 40, in <module>\n    check(make_palindrome)\n  File \"/tmp/tmpwgiy7nbz.py\", line 34, in check\n    assert candidate('') == ''\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/13", "ok": true, "ctok": 415, "why": "PASS\n"}
+{"task_id": "HumanEval/11", "ok": false, "ctok": 1024, "why": "<module>\n    check(string_xor)\n  File \"/tmp/tmpw62yu9mw.py\", line 24, in check\n    assert candidate('111000', '101010') == '010010'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/16", "ok": true, "ctok": 153, "why": "PASS\n"}
+{"task_id": "HumanEval/15", "ok": true, "ctok": 217, "why": "PASS\n"}
+{"task_id": "HumanEval/18", "ok": true, "ctok": 302, "why": "PASS\n"}
+{"task_id": "HumanEval/14", "ok": true, "ctok": 567, "why": "PASS\n"}
+{"task_id": "HumanEval/17", "ok": true, "ctok": 530, "why": "PASS\n"}
+{"task_id": "HumanEval/19", "ok": true, "ctok": 584, "why": "PASS\n"}
+{"task_id": "HumanEval/23", "ok": true, "ctok": 160, "why": "PASS\n"}
+{"task_id": "HumanEval/21", "ok": true, "ctok": 593, "why": "PASS\n"}
+{"task_id": "HumanEval/20", "ok": false, "ctok": 679, "why": "ine 4, in <module>\n    def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:\n                                       ^^^^\nNameError: name 'List' is not defined. Did you mean: 'list'?\n"}
+{"task_id": "HumanEval/22", "ok": false, "ctok": 1024, "why": "ile \"/tmp/tmp2fp93gfv.py\", line 29, in <module>\n    check(filter_integers)\n  File \"/tmp/tmp2fp93gfv.py\", line 25, in check\n    assert candidate([]) == []\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/26", "ok": true, "ctok": 499, "why": "PASS\n"}
+{"task_id": "HumanEval/24", "ok": true, "ctok": 729, "why": "PASS\n"}
+{"task_id": "HumanEval/27", "ok": true, "ctok": 213, "why": "PASS\n"}
+{"task_id": "HumanEval/28", "ok": true, "ctok": 258, "why": "PASS\n"}
+{"task_id": "HumanEval/30", "ok": true, "ctok": 215, "why": "PASS\n"}
+{"task_id": "HumanEval/25", "ok": false, "ctok": 1024, "why": "):\n  File \"/tmp/tmpvglgx7_2.py\", line 38, in <module>\n    check(factorize)\n  File \"/tmp/tmpvglgx7_2.py\", line 29, in check\n    assert candidate(2) == [2]\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/29", "ok": true, "ctok": 482, "why": "PASS\n"}
+{"task_id": "HumanEval/31", "ok": true, "ctok": 446, "why": "PASS\n"}
+{"task_id": "HumanEval/34", "ok": true, "ctok": 240, "why": "PASS\n"}
+{"task_id": "HumanEval/35", "ok": true, "ctok": 279, "why": "PASS\n"}
+{"task_id": "HumanEval/33", "ok": true, "ctok": 592, "why": "PASS\n"}
+{"task_id": "HumanEval/32", "ok": false, "ctok": 1024, "why": "File \"/tmp/tmppd34b7dn.py\", line 12, in poly\n    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])\n                        ^^^^^^^^^^^^^^\nTypeError: must be real number, not NoneType\n"}
+{"task_id": "HumanEval/37", "ok": true, "ctok": 533, "why": "PASS\n"}
+{"task_id": "HumanEval/38", "ok": false, "ctok": 663, "why": "ic)\n  File \"/tmp/tmporf4r_h7.py\", line 23, in check\n    encoded_str = encode_cyclic(str)\n                  ^^^^^^^^^^^^^\nNameError: name 'encode_cyclic' is not defined. Did you mean: 'decode_cyclic'?\n"}
+{"task_id": "HumanEval/36", "ok": false, "ctok": 1024, "why": "st):\n  File \"/tmp/tmpwpwk0z5x.py\", line 33, in <module>\n    check(fizz_buzz)\n  File \"/tmp/tmpwpwk0z5x.py\", line 23, in check\n    assert candidate(50) == 0\n           ^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/41", "ok": true, "ctok": 173, "why": "PASS\n"}
+{"task_id": "HumanEval/42", "ok": true, "ctok": 390, "why": "PASS\n"}
+{"task_id": "HumanEval/43", "ok": true, "ctok": 304, "why": "PASS\n"}
+{"task_id": "HumanEval/39", "ok": false, "ctok": 1024, "why": "last):\n  File \"/tmp/tmpa_wk1luj.py\", line 40, in <module>\n    check(prime_fib)\n  File \"/tmp/tmpa_wk1luj.py\", line 28, in check\n    assert candidate(1) == 2\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/45", "ok": true, "ctok": 217, "why": "PASS\n"}
+{"task_id": "HumanEval/40", "ok": false, "ctok": 1024, "why": "  File \"/tmp/tmpl4albg0z.py\", line 13\n    total = nums[i] + nums[j] + nums[k\n                                    ^\nSyntaxError: '[' was never closed\n"}
+{"task_id": "HumanEval/44", "ok": true, "ctok": 467, "why": "PASS\n"}
+{"task_id": "HumanEval/48", "ok": true, "ctok": 202, "why": "PASS\n"}
+{"task_id": "HumanEval/49", "ok": true, "ctok": 513, "why": "PASS\n"}
+{"task_id": "HumanEval/46", "ok": true, "ctok": 822, "why": "PASS\n"}
+{"task_id": "HumanEval/50", "ok": false, "ctok": 636, "why": "_shift)\n  File \"/tmp/tmp0chfugnm.py\", line 22, in check\n    encoded_str = encode_shift(str)\n                  ^^^^^^^^^^^^\nNameError: name 'encode_shift' is not defined. Did you mean: 'decode_shift'?\n"}
+{"task_id": "HumanEval/47", "ok": false, "ctok": 1024, "why": "wvph4e.py\", line 28, in <module>\n    check(median)\n  File \"/tmp/tmpdtwvph4e.py\", line 21, in check\n    assert candidate([3, 1, 2, 4, 5]) == 3\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/51", "ok": true, "ctok": 358, "why": "PASS\n"}
+{"task_id": "HumanEval/52", "ok": true, "ctok": 264, "why": "PASS\n"}
+{"task_id": "HumanEval/53", "ok": true, "ctok": 245, "why": "PASS\n"}
+{"task_id": "HumanEval/54", "ok": true, "ctok": 336, "why": "PASS\n"}
+{"task_id": "HumanEval/56", "ok": true, "ctok": 313, "why": "PASS\n"}
+{"task_id": "HumanEval/55", "ok": true, "ctok": 425, "why": "PASS\n"}
+{"task_id": "HumanEval/58", "ok": true, "ctok": 305, "why": "PASS\n"}
+{"task_id": "HumanEval/60", "ok": true, "ctok": 261, "why": "PASS\n"}
+{"task_id": "HumanEval/57", "ok": true, "ctok": 611, "why": "PASS\n"}
+{"task_id": "HumanEval/61", "ok": true, "ctok": 409, "why": "PASS\n"}
+{"task_id": "HumanEval/62", "ok": true, "ctok": 352, "why": "PASS\n"}
+{"task_id": "HumanEval/59", "ok": false, "ctok": 1024, "why": " \"/tmp/tmpg97n5hxf.py\", line 28, in <module>\n    check(largest_prime_factor)\n  File \"/tmp/tmpg97n5hxf.py\", line 21, in check\n    assert candidate(15) == 5\n           ^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/64", "ok": true, "ctok": 383, "why": "PASS\n"}
+{"task_id": "HumanEval/63", "ok": true, "ctok": 739, "why": "PASS\n"}
+{"task_id": "HumanEval/66", "ok": true, "ctok": 493, "why": "PASS\n"}
+{"task_id": "HumanEval/68", "ok": true, "ctok": 517, "why": "PASS\n"}
+{"task_id": "HumanEval/67", "ok": true, "ctok": 643, "why": "PASS\n"}
+{"task_id": "HumanEval/65", "ok": false, "ctok": 1024, "why": "wr85_q28.py\", line 28, in <module>\n    check(circular_shift)\n  File \"/tmp/tmpwr85_q28.py\", line 19, in check\n    assert candidate(100, 2) == \"001\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/69", "ok": true, "ctok": 274, "why": "PASS\n"}
+{"task_id": "HumanEval/72", "ok": true, "ctok": 101, "why": "PASS\n"}
+{"task_id": "HumanEval/74", "ok": true, "ctok": 323, "why": "PASS\n"}
+{"task_id": "HumanEval/71", "ok": true, "ctok": 431, "why": "PASS\n"}
+{"task_id": "HumanEval/73", "ok": true, "ctok": 438, "why": "PASS\n"}
+{"task_id": "HumanEval/70", "ok": true, "ctok": 741, "why": "PASS\n"}
+{"task_id": "HumanEval/78", "ok": true, "ctok": 337, "why": "PASS\n"}
+{"task_id": "HumanEval/75", "ok": false, "ctok": 1024, "why": "tmp/tmp4pxsyrm9.py\", line 29, in <module>\n    check(is_multiply_prime)\n  File \"/tmp/tmp4pxsyrm9.py\", line 17, in check\n    assert candidate(5) == False\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/76", "ok": false, "ctok": 1024, "why": " assert candidate(16, 2)== True, \"This prints if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/77", "ok": false, "ctok": 1024, "why": "scube)\n  File \"/tmp/tmp1ndnv2az.py\", line 23, in check\n    assert candidate(1) == True, \"First test error: \" + str(candidate(1))\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: First test error: None\n"}
+{"task_id": "HumanEval/82", "ok": true, "ctok": 261, "why": "PASS\n"}
+{"task_id": "HumanEval/79", "ok": true, "ctok": 891, "why": "PASS\n"}
+{"task_id": "HumanEval/80", "ok": true, "ctok": 459, "why": "PASS\n"}
+{"task_id": "HumanEval/85", "ok": true, "ctok": 304, "why": "PASS\n"}
+{"task_id": "HumanEval/84", "ok": true, "ctok": 393, "why": "PASS\n"}
+{"task_id": "HumanEval/81", "ok": false, "ctok": 1024, "why": "pwbvvu5dq.py\", line 35, in check\n    assert candidate([4.0, 3, 1.7, 2, 3.5]) == ['A+', 'B', 'C-', 'C', 'A-']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/87", "ok": true, "ctok": 394, "why": "PASS\n"}
+{"task_id": "HumanEval/83", "ok": false, "ctok": 1024, "why": "\n  File \"/tmp/tmpmxnpoxi9.py\", line 26, in <module>\n    check(starts_one_ends)\n  File \"/tmp/tmpmxnpoxi9.py\", line 16, in check\n    assert candidate(1) == 1\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/86", "ok": true, "ctok": 754, "why": "PASS\n"}
+{"task_id": "HumanEval/88", "ok": true, "ctok": 495, "why": "PASS\n"}
+{"task_id": "HumanEval/89", "ok": true, "ctok": 627, "why": "PASS\n"}
+{"task_id": "HumanEval/90", "ok": true, "ctok": 491, "why": "PASS\n"}
+{"task_id": "HumanEval/91", "ok": false, "ctok": 1024, "why": " 33, in <module>\n    check(is_bored)\n  File \"/tmp/tmp2oxyc2sc.py\", line 22, in check\n    assert candidate(\"Hello world\") == 0, \"Test 1\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Test 1\n"}
+{"task_id": "HumanEval/92", "ok": false, "ctok": 1024, "why": "ssert candidate(2, 3, 1)==True, \"This prints if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/93", "ok": false, "ctok": 1024, "why": "candidate('TEST') == 'tgst', \"This prints if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/94", "ok": false, "ctok": 1024, "why": "if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/96", "ok": true, "ctok": 559, "why": "PASS\n"}
+{"task_id": "HumanEval/98", "ok": true, "ctok": 321, "why": "PASS\n"}
+{"task_id": "HumanEval/97", "ok": true, "ctok": 468, "why": "PASS\n"}
+{"task_id": "HumanEval/95", "ok": true, "ctok": 801, "why": "PASS\n"}
+{"task_id": "HumanEval/100", "ok": true, "ctok": 385, "why": "PASS\n"}
+{"task_id": "HumanEval/101", "ok": true, "ctok": 440, "why": "PASS\n"}
+{"task_id": "HumanEval/99", "ok": false, "ctok": 1024, "why": "py\", line 37, in <module>\n    check(closest_integer)\n  File \"/tmp/tmpioc8hqrj.py\", line 28, in check\n    assert candidate(\"10\") == 10, \"Test 1\"\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Test 1\n"}
+{"task_id": "HumanEval/102", "ok": false, "ctok": 1024, "why": " \"/tmp/tmpbl64qd9d.py\", line 31, in <module>\n    check(choose_num)\n  File \"/tmp/tmpbl64qd9d.py\", line 19, in check\n    assert candidate(12, 15) == 14\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/104", "ok": true, "ctok": 680, "why": "PASS\n"}
+{"task_id": "HumanEval/103", "ok": false, "ctok": 1024, "why": "p/tmp5nuf124u.py\", line 38, in <module>\n    check(rounded_avg)\n  File \"/tmp/tmp5nuf124u.py\", line 21, in check\n    assert candidate(1, 5) == \"0b11\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/107", "ok": true, "ctok": 479, "why": "PASS\n"}
+{"task_id": "HumanEval/105", "ok": true, "ctok": 927, "why": "PASS\n"}
+{"task_id": "HumanEval/106", "ok": false, "ctok": 1024, "why": "  File \"/tmp/tmpkhmjfebe.py\", line 17\n    factorial *=\n                ^\nSyntaxError: invalid syntax\n"}
+{"task_id": "HumanEval/108", "ok": true, "ctok": 921, "why": "PASS\n"}
+{"task_id": "HumanEval/110", "ok": true, "ctok": 642, "why": "PASS\n"}
+{"task_id": "HumanEval/112", "ok": true, "ctok": 180, "why": "PASS\n"}
+{"task_id": "HumanEval/109", "ok": true, "ctok": 859, "why": "PASS\n"}
+{"task_id": "HumanEval/111", "ok": true, "ctok": 433, "why": "PASS\n"}
+{"task_id": "HumanEval/114", "ok": true, "ctok": 329, "why": "PASS\n"}
+{"task_id": "HumanEval/115", "ok": true, "ctok": 671, "why": "PASS\n"}
+{"task_id": "HumanEval/113", "ok": true, "ctok": 816, "why": "PASS\n"}
+{"task_id": "HumanEval/117", "ok": true, "ctok": 476, "why": "PASS\n"}
+{"task_id": "HumanEval/120", "ok": true, "ctok": 303, "why": "PASS\n"}
+{"task_id": "HumanEval/116", "ok": false, "ctok": 1024, "why": "<module>\n    check(sort_array)\n  File \"/tmp/tmp01fyrp0s.py\", line 22, in check\n    assert candidate([1,5,2,3,4]) == [1, 2, 4, 3, 5]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/119", "ok": true, "ctok": 507, "why": "PASS\n"}
+{"task_id": "HumanEval/121", "ok": true, "ctok": 309, "why": "PASS\n"}
+{"task_id": "HumanEval/122", "ok": true, "ctok": 479, "why": "PASS\n"}
+{"task_id": "HumanEval/118", "ok": false, "ctok": 1024, "why": "j1v29.py\", line 43, in <module>\n    check(get_closest_vowel)\n  File \"/tmp/tmprv_j1v29.py\", line 25, in check\n    assert candidate(\"yogurt\") == \"u\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/123", "ok": true, "ctok": 801, "why": "PASS\n"}
+{"task_id": "HumanEval/124", "ok": false, "ctok": 1024, "why": "  File \"/tmp/tmpy4ob7jvd.py\", line 5\n    if not isinstance(date, str) or len(date)\n                                             ^\nSyntaxError: expected ':'\n"}
+{"task_id": "HumanEval/125", "ok": false, "ctok": 1024, "why": "check(split_words)\n  File \"/tmp/tmpqiz__nh8.py\", line 19, in check\n    assert candidate(\"Hello world!\") == [\"Hello\",\"world!\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/126", "ok": false, "ctok": 1024, "why": "ile \"/tmp/tmp_enhuurs.py\", line 43, in <module>\n    check(is_sorted)\n  File \"/tmp/tmp_enhuurs.py\", line 26, in check\n    assert candidate([5]) == True\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/127", "ok": true, "ctok": 779, "why": "PASS\n"}
+{"task_id": "HumanEval/128", "ok": true, "ctok": 729, "why": "PASS\n"}
+{"task_id": "HumanEval/131", "ok": true, "ctok": 391, "why": "PASS\n"}
+{"task_id": "HumanEval/129", "ok": false, "ctok": 1024, "why": "\"/tmp/tmp2u7vh8l4.py\", line 41, in check\n    assert candidate([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 3) == [1, 2, 1]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/130", "ok": false, "ctok": 1024, "why": "m1_a_dz.py\", line 41, in <module>\n    check(tri)\n  File \"/tmp/tmpfm1_a_dz.py\", line 28, in check\n    assert candidate(3) == [1, 3, 2.0, 8.0]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/132", "ok": false, "ctok": 1024, "why": "ert candidate('[[]]') == True, \"This prints if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/135", "ok": true, "ctok": 448, "why": "PASS\n"}
+{"task_id": "HumanEval/133", "ok": false, "ctok": 1024, "why": "   assert candidate([1,2,3])==14, \"This prints if this assert fails 1 (good for debugging!)\"\n           ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: This prints if this assert fails 1 (good for debugging!)\n"}
+{"task_id": "HumanEval/136", "ok": true, "ctok": 385, "why": "PASS\n"}
+{"task_id": "HumanEval/138", "ok": true, "ctok": 293, "why": "PASS\n"}
+{"task_id": "HumanEval/134", "ok": false, "ctok": 1024, "why": " 38, in <module>\n    check(check_if_last_char_is_a_letter)\n  File \"/tmp/tmpg0jeffl9.py\", line 23, in check\n    assert candidate(\"apple\") == False\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/139", "ok": true, "ctok": 526, "why": "PASS\n"}
+{"task_id": "HumanEval/137", "ok": true, "ctok": 854, "why": "PASS\n"}
+{"task_id": "HumanEval/140", "ok": true, "ctok": 737, "why": "PASS\n"}
+{"task_id": "HumanEval/141", "ok": true, "ctok": 800, "why": "PASS\n"}
+{"task_id": "HumanEval/142", "ok": true, "ctok": 566, "why": "PASS\n"}
+{"task_id": "HumanEval/143", "ok": true, "ctok": 576, "why": "PASS\n"}
+{"task_id": "HumanEval/144", "ok": true, "ctok": 555, "why": "PASS\n"}
+{"task_id": "HumanEval/146", "ok": true, "ctok": 563, "why": "PASS\n"}
+{"task_id": "HumanEval/148", "ok": true, "ctok": 473, "why": "PASS\n"}
+{"task_id": "HumanEval/145", "ok": false, "ctok": 1024, "why": " File \"/tmp/tmpyltjmflk.py\", line 21, in check\n    assert candidate([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/147", "ok": false, "ctok": 1024, "why": "\n  File \"/tmp/tmpr3xgpvpk.py\", line 28, in <module>\n    check(get_max_triples)\n  File \"/tmp/tmpr3xgpvpk.py\", line 23, in check\n    assert candidate(5) == 1\n           ^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/150", "ok": true, "ctok": 468, "why": "PASS\n"}
+{"task_id": "HumanEval/152", "ok": true, "ctok": 335, "why": "PASS\n"}
+{"task_id": "HumanEval/149", "ok": false, "ctok": 1024, "why": "module>\n    check(sorted_list_sum)\n  File \"/tmp/tmpzj7i9uih.py\", line 25, in check\n    assert candidate([\"aa\", \"a\", \"aaa\"]) == [\"aa\"]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/151", "ok": true, "ctok": 905, "why": "PASS\n"}
+{"task_id": "HumanEval/153", "ok": true, "ctok": 660, "why": "PASS\n"}
+{"task_id": "HumanEval/155", "ok": true, "ctok": 305, "why": "PASS\n"}
+{"task_id": "HumanEval/157", "ok": true, "ctok": 333, "why": "PASS\n"}
+{"task_id": "HumanEval/159", "ok": true, "ctok": 211, "why": "PASS\n"}
+{"task_id": "HumanEval/158", "ok": true, "ctok": 473, "why": "PASS\n"}
+{"task_id": "HumanEval/156", "ok": true, "ctok": 654, "why": "PASS\n"}
+{"task_id": "HumanEval/154", "ok": false, "ctok": 1024, "why": "  check(cycpattern_check)\n  File \"/tmp/tmpfmc5opxj.py\", line 24, in check\n    assert  candidate(\"xyzw\",\"xyw\") == False , \"test #0\"\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: test #0\n"}
+{"task_id": "HumanEval/161", "ok": true, "ctok": 255, "why": "PASS\n"}
+{"task_id": "HumanEval/162", "ok": true, "ctok": 800, "why": "PASS\n"}
+{"task_id": "HumanEval/160", "ok": false, "ctok": 1024, "why": " check(do_algebra)\n  File \"/tmp/tmpqsrxtxuq.py\", line 35, in check\n    assert candidate(['**', '*', '+'], [2, 3, 4, 5]) == 37\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"}
+{"task_id": "HumanEval/163", "ok": false, "ctok": 1024, "why": "  File \"/tmp/tmpp5r9xgdb.py\", line 15\n    return [digit\n           ^\nSyntaxError: '[' was never closed\n"}
