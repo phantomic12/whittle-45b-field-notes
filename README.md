@@ -50,6 +50,7 @@ content sits in the wrong hidden space for this model.
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
 | Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.36% PPL on prose** (z = −0.25) but **+28.73% on a rare-token corpus** (z = +11.86, entry 20) — five times the +5.48% entry 19 first measured, because 19 ran on a local requantisation and 20 ran on the hub file. Row capacity is not load-bearing on ordinary text and *is* load-bearing on the long-tail inputs the model card advertises — flat at 62.5% and 56.25% kept, then a cliff, so the threshold sits in (56.25%, 50%]. The damage is concentrated: **two of 24 chunks account for most of it** (5.94× and 4.49×), 19 of 24 are within 1.23× |
 | Per-tensor SSM protection | **not worth its bytes.** Pinning `ssm_out`/`attn_gate` to q8_0 and `ssm_alpha`/`ssm_beta` to f16 costs **+245.4 MiB (+0.95%)** and moves PPL **+0.254%, z = +0.18** — indistinguishable from zero, in the wrong direction (entry 21). The control build is byte-identical to its source, so there is no requantisation confound |
+| Throughput on a 21.42 GiB file is set by RAM, not VRAM | two boxes with the *same* i9-12900H, RTX 3060 6 GB, driver and binary, differing only in RAM (31 vs 15 GB), read **195.2 vs 22.5 t/s** pp256 = **8.7×**. The 15 GB box holds **63%** of the file in page cache and re-reads **1.08–1.24× the whole model off NVMe per 2048-token prefill** at **0.30 GiB/s**; the 31 GB box reads **0 MiB**. Forcing eviction on the fast box with a 14 GiB anonymous hold reproduces **20.21 t/s** (entry 22) |
 
 ## What did not survive testing
 
@@ -133,6 +134,7 @@ the index reflects what actually happened.
 | 19 | 2026-10-28 | [Rare tokens are where the engram table earns its keep](diary/2026-10-28-rare-tokens-are-where-the-engram-table-earns-its-keep.md) | entry 17's null was **the corpus, not the table**: same 2.15 GB deleted, **−0.36% on prose vs +5.48% on a rare-token corpus** (z = +3.43) — a 15× magnitude difference and a sign flip, so the table's rows carry real information exactly where the model card advertises it. Also: the harness is **bit-deterministic** (two intact and two 50% runs identical to 4 dp), so a rerun can never arbitrate a null — only a new corpus can; the curve is flat at 75% kept then jumps, so the threshold is in (75%, 50%] and unlocated. **And the provenance correction:** our measurement artefact matches *neither* hub revision (pre-heal `a679542` has the same byte count, different sha), so entries 5–18 measured a local requantisation — entry 16's "same size, so it came from the hub" was not a valid inference |
 | 20 | 2026-10-29 | [The knee is at 56.25%, and the shipped file costs 5.24× what entry 19 measured](diary/2026-10-29-the-knee-is-at-5625-and-the-shipped-file-costs-5x-more.md) | run on the **hub file `9f034b43`**, not our local requant: intact **10.2570 ±0.10294**, flat at 62.5% (−0.46%) and 56.25% (−0.44%) kept, then **13.2038 = +28.73%, z = +11.86** at 50%. So entry 19's +5.48% **understates the cost 5.24×** and the knee is in (56.25%, 50%], one step above where 19 left it. The `frac^8` knee model is falsified at all three points (−0.46/−0.44 vs +0.39/+1.35 predicted, then 7.2× too low). **Per-chunk vector: the damage is two chunks of 24** — chunks 1–7 read +0.99%, chunks 8–24 +42.3%, with chunk 8 at **5.94×** and chunk 18 at **4.49×** and 19 of 24 chunks ≤1.23×. Occupancy counted on both files and **ruled out as the mechanism**: every half of every head matches to 0.01 pp, and in both files the tail is as dense as the head (head 3 19.7%, head 4 99.3% — a 5× spread across heads) |
 | 21 | 2026-10-29 | [SSM and gate protection at q8_0 buys +0.25%, inside noise](diary/2026-10-29-ssm-protection-buys-nothing-measurable.md) | protecting `ssm_out`/`attn_gate` at q8_0 and `ssm_alpha`/`ssm_beta` at f16 costs **+245.4 MiB (+0.95%)** and moves PPL **7.6821 ±0.07722 → 7.7016 ±0.07745 = +0.254%, z = +0.18** — no effect detected, in the wrong direction. The control is **byte-identical to its source** (`f483b9dd`), so there is no requant confound. The lever that matters is still the experts: entry 13 measured **+23.11%** from ablating them at the same flags |
+| 22 | 2026-10-30 | [RAM, not the GPU, sets throughput on this file](diary/2026-10-30-ram-not-the-gpu-sets-throughput.md) | five-host ladder on Clover-35B-A3B Q4_K_M at `--n-cpu-moe 99`: 4080 **384.91** > 3060/31 GB **318.17** > T1000 **51.94** pp2048, and one 3060/15 GB at **28.52**. The 3060 pair is the same laptop (same CPU, GPU, driver, binary) differing only in RAM: **195.2 vs 22.5 t/s** pp256 = **8.7×**, because 31 GB caches the whole 21.42 GiB file (**0 MiB read from disk**) and 15 GB holds **63%** and re-reads **1.08–1.24× the model per 2048-token prefill** at **0.30 GiB/s** (7.4× slower than the 1.9 GB/s sequential rate). Causality by eviction: holding 14 GiB of touched anonymous memory on the *fast* box drops it to **20.21 t/s**. **The dose–response curve is not reproducible** — two reps at the same hold differ up to **3.8×**, a log-linear fit gives R²=0.61, so the cliff is located only to (63%, 91%] resident and the fit is not published |
 
 ## Provenance
 
@@ -153,6 +155,13 @@ repo.** Two effects, both measured on the same file:
   effect being measured. Entry 10 compared a GPU number to a CPU number and drew a 4.9×
   conclusion from it; entry 11 is the correction.
 
+**And for any *throughput* number, read the host's RAM before the GPU.** Every bench above ran
+with the routed experts in system RAM (`--n-cpu-moe`), which makes residency of the `.gguf` in
+page cache a first-class variable and not a detail: entry 22 measures **8.7×** on pp256 between
+two identical laptops that differ only in 31 vs 15 GB of RAM. The tell is in the log's own error
+bars — a cell whose ± is 50% or more is not slow, it is swapping. `fincore --bytes` the model
+before quoting any t/s.
+
 Every table states its flags; a ratio is only as matched as its worst-matched factor.
 
 Hardware referenced throughout:
@@ -161,6 +170,8 @@ Hardware referenced throughout:
 |---|---|---|---|
 | laptop (Zephyrus) | Ryzen 9 7945HX, 32T | RTX 4080 Laptop 12 GB, PCIe 4.0 **x8** | 45B Q4 at 27.4 t/s, evaluation |
 | remediate | i7-12700T, 20T | T1000 8 GB | 35B at 7.2 t/s, Docker grading |
+| localhost (50.77) | i9-12900H, 20T | RTX 3060 Laptop 6 GB | Clover bench: 31 GB RAM caches the whole GGUF |
+| DESKTOP-JKJQB5R (50.119) | i9-12900H, 20T | RTX 3060 Laptop 6 GB | same laptop as 50.77 but **15 GB RAM** — read the RAM before any number from this box |
 | remediate-2 | i7-12700T, 20T | T1000 8 GB | CPU-only perplexity and NIAH, 20 threads |
 | garlic-clove | — | **Intel Arc Pro B60** (BMG G21, 21414 MiB) | Vulkan inference, 10.3× the CPU rate |
 | Colab G4 | — | 96 GB, 102 GB available | bf16 routing profile, 3.14 CU |
