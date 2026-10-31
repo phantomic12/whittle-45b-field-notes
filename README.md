@@ -50,6 +50,7 @@ content sits in the wrong hidden space for this model.
 | Behavioural probes | 8/8 content correct, but only **2/8 emit EOS**, mean terminal P(EOS) **0.1972** — a serving defect, not a knowledge defect |
 | Engram table capacity, 4K | it is **4.29 GB in the shipped Q3_K_M**; keeping only **50% of the rows costs −0.36% PPL on prose** (z = −0.25) but **+28.73% on a rare-token corpus** (z = +11.86, entry 20) — five times the +5.48% entry 19 first measured, because 19 ran on a local requantisation and 20 ran on the hub file. Row capacity is not load-bearing on ordinary text and *is* load-bearing on the long-tail inputs the model card advertises — flat at 62.5% and 56.25% kept, then a cliff, so the threshold sits in (56.25%, 50%]. The damage is concentrated: **two of 24 chunks account for most of it** (5.94× and 4.49×), 19 of 24 are within 1.23× |
 | Per-tensor SSM protection | **not worth its bytes.** Pinning `ssm_out`/`attn_gate` to q8_0 and `ssm_alpha`/`ssm_beta` to f16 costs **+245.4 MiB (+0.95%)** and moves PPL **+0.254%, z = +0.18** — indistinguishable from zero, in the wrong direction (entry 21). The control build is byte-identical to its source, so there is no requantisation confound |
+| UD-style recipe | **dominated.** 19 `--tensor-type` overrides that demote the engram table to Q3_K, split the expert ladder into Q3_K/Q4_K/Q6_K and pin the always-on set to q8_0 give a file **1.12% smaller and 1.71% worse** (7.6821 → 7.8133, entry 24) — 3.7× the ladder's own rate for that saving, worse in **24 of 24 chunks**. A transferred imatrix changes **+0.003%, z = 0.00** |
 | Throughput on a 21.42 GiB file is set by RAM, not VRAM | two boxes with the *same* i9-12900H, RTX 3060 6 GB, driver and binary, differing only in RAM (31 vs 15 GB), read **195.2 vs 22.5 t/s** pp256 = **8.7×**. The 15 GB box holds **63%** of the file in page cache and re-reads **1.08–1.24× the whole model off NVMe per 2048-token prefill** at **0.30 GiB/s**; the 31 GB box reads **0 MiB**. Forcing eviction on the fast box with a 14 GiB anonymous hold reproduces **20.21 t/s** (entry 22) |
 
 ## What did not survive testing
@@ -103,6 +104,15 @@ prediction I made, and the measurement that killed it.
     and 50% zeroed; measured **−0.46%, −0.44% and +28.73%** (entry 20). Monotone in structure,
     wrong in sign at two points and 7.2× low at the third, because the real behaviour is a
     threshold and the per-chunk vector shows the loss landing in **two chunks out of 24**.
+11. **"Spend bytes on the experts and the table, give them back on the small tensors, and the
+    file gets better for the same or less size."** Falsified as built. A 19-override UD-style
+    recipe produces a file **1.12% smaller and 1.71% worse** (7.6821 → 7.8133, entry 24) —
+    **3.7× the quant ladder's own exchange rate** for that saving, and worse in **24 of 24
+    chunks** rather than in a couple. The transferred imatrix I expected to carry the result
+    moves PPL **+0.003%, z = 0.00**. The mistake underneath it: I cited entry 17's finding that
+    *half the table's rows can be deleted* as evidence that the table can be *stored at 3 bits
+    instead of 4* — row capacity and per-row precision are different operations on the same
+    tensor, and only the first was ever measured.
 
 ## Diary index
 
@@ -137,6 +147,8 @@ the index reflects what actually happened.
 | 22 | 2026-10-30 | [RAM, not the GPU, sets throughput on this file](diary/2026-10-30-ram-not-the-gpu-sets-throughput.md) | five-host ladder on Clover-35B-A3B Q4_K_M at `--n-cpu-moe 99`: 4080 **384.91** > 3060/31 GB **318.17** > T1000 **51.94** pp2048, and one 3060/15 GB at **28.52**. The 3060 pair is the same laptop (same CPU, GPU, driver, binary) differing only in RAM: **195.2 vs 22.5 t/s** pp256 = **8.7×**, because 31 GB caches the whole 21.42 GiB file (**0 MiB read from disk**) and 15 GB holds **63%** and re-reads **1.08–1.24× the model per 2048-token prefill** at **0.30 GiB/s** (7.4× slower than the 1.9 GB/s sequential rate). Causality by eviction: holding 14 GiB of touched anonymous memory on the *fast* box drops it to **20.21 t/s**. **The dose–response curve is not reproducible** — two reps at the same hold differ up to **3.8×**, a log-linear fit gives R²=0.61, so the cliff is located only to (63%, 91%] resident and the fit is not published |
 
 | 23 | 2026-10-30 | [First matched head-to-head: Whittle gives up 32 HumanEval items to buy 36 cloze items](diary/2026-10-30-first-head-to-head-whittle-loses-reasoning-wins-recall.md) | the comparison every note until now only inferred: **474 paired items, one box, one build, one sampler**, Whittle Q3_K_M vs Qwen3.8-27B Q4_K_M. Whittle wins long-tail cloze **191/200 vs 155/200** (+36, McNemar **p=1.7e-08**) and loses GSM-50 **37/50 vs 46/50** (+9 to Qwen, p=0.004), MATH-60 **52/60 vs 60/60** (+8, p=0.008) and HumanEval **123/164 vs 155/164** (+32, p=1.9e-07). Also measures the quant penalty the card's numbers do not: same thinking-off greedy protocol as the published **133/164**, Q3_K_M gets **123/164** — **−6.1 points**. Harness bug found and fixed: the first HumanEval pass ran thinking ON at a 1024 cap, truncating **41%** of Whittle's completions (26% of Qwen's) and reading 51.8%. Throughput on the same box: **33.1 vs 10.1 t/s** tg64, 4-slot aggregate **17.9** |
+
+| 24 | 2026-10-31 | [A UD-style recipe is dominated: 1.12% fewer bytes, 1.71% worse](diary/2026-10-31-ud-recipe-is-dominated-and-the-imatrix-is-a-zero.md) | 19 hand-written `--tensor-type` overrides (engram table → Q3_K, expert ladder split up/gate/down as Q3_K/Q4_K/Q6_K, q8_0 always-on set) produce a file **290.5 MiB (−1.124%) smaller** and **1.708% worse** — control **7.6821 ±0.07722 reproduces entry 21's control to every printed digit**, prototype **7.8133 ±0.07890**. Against the ladder's own rate (+8.7% PPL per −21% bytes, entry 5) the saving should have cost ~+0.47%, so the recipe charges **3.7×** the going rate. Damage is **uniform: 24 of 24 chunks worse**, mean +1.54%, sd 0.27% (t = 14.4 on paired per-chunk nats) — the opposite shape from entry 20's two-chunk cliff, which is a broad requantisation tax, not one gutted component. The transferred `imat_qwen36` imatrix changes **+0.003%, z = 0.00** |
 
 ## Provenance
 
