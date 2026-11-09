@@ -1,6 +1,6 @@
 # Whittle-45B field notes
 
-Field notes from four days (2026-10-24 to 2026-10-27) of evaluating, quantising and
+Field notes from three weeks (2026-10-24 to 2026-11-09) of evaluating, quantising and
 trying to repair
 [`logic65/Whittle-Qwen-3.8-45B-A3B`](https://huggingface.co/logic65) — a 45.1 B-parameter
 mixture-of-experts that is, structurally, a Qwen3.6-35B-A3B with **76 extra experts per
@@ -161,6 +161,7 @@ the index reflects what actually happened.
 | 25 | 2026-10-31 | [The 20 GB build beats the shipped file by 6.49%](diary/2026-10-31-the-20gb-build-beats-the-shipped-file-by-6.5.md) | the recipe the deployment constraint actually asks for: pin the engram table at **Q6_K (7,818.60 MiB, +45.83%, charged to RAM)** and cut the body to **17,445.09 MiB (−14.78%)**. Result **PPL 7.9581 ±0.08082 = +3.593% vs control 7.6821** (z = +2.47, but t = 22.3 on 24 paired chunks, **24/24 worse**), which is **−6.490% against the shipped Q3_K_M (8.5104 ±0.08909, z = −4.59) for +7.50% body bytes**. The two exchange rates disagree and that is the finding: **3.23× worse** than the ladder charged on *total* file bytes, **2.1× better** charged on *on-card body* bytes. File is **567.4 MiB (−2.196%) smaller** than Q4_K_M and 4.83 GiB *larger* than Q3_K_M. Not decomposed: table promotion and expert demotion moved together. Not loaded on a 20 GB card yet |
 
 | 26 | 2026-10-31 | [Sacrificing the down experts is strictly dominated](diary/2026-10-31-sacrificing-the-down-experts-is-strictly-dominated.md) | my hypothesis that `ffn_down_exps` is the cheaper expert class to compress is dead: putting the cut on down (**Q2_K**) while keeping gate/up at Q4_K gives **PPL 8.3074 ±0.08504** on a body **320.0 MiB *larger*** than entry 25's 17,445.09 MiB — **+4.389%** worse for more bytes, **24/24 chunks**, t = 17.9. Strictly dominated at any price. The clean single-variable cell (v5A vs v5B, down Q2_K vs Q3_K, everything else byte-identical in recipe) prices that step at **+5.824% for −1,040 MiB body = 1.053 %PPL per %body-byte, 2.0× the quant ladder's 0.520**. By-product is the best-quality build in the sequence: **`w45_v5B` — gate/up Q4_K, down Q3_K, body 18,805.09 MiB — reads 7.8502 ±0.07929 = +2.188% vs control (z = +1.52) and −7.758% vs the shipped Q3_K_M (z = −5.54)** for **+15.95% body bytes against Q3_K_M's body**; it is 3.07% *larger* than Q4_K_M in total bytes because 2,457.27 MiB of table moved to RAM. Gate/up was never isolated; the table-only cell is still unrun |
+| 27 | 2026-11-09 | [bf16 rounding ate 78% of the table's gradients, and fixing it did not move the loss](diary/2026-11-09-bf16-rounding-ate-78-percent-of-the-gradients.md) | the follow-up to entry 20's null, asking whether something structural makes it inevitable. It does, and it is not the cause. The table is **5 BF16 shards, 39,040,000 × 256, 19.99 GB**, median \|W\| **0.003143**, so bf16 half-ULP is **6.14e-6**; brute-force survival at sub-ULP update scale is **0.005 at 1e-7 and 0.049 at 1e-6**, and a live `--probe` counter reads **survive 0.218** at lr=0.002 — 78% of every gradient computed and then rounded away. **My first proposed fix was wrong on first principles**: an fp32 *intermediate* cannot help when the *storage* is bf16, and an fp32 master copy needs 40 GB against 5.4 GiB spare. Stochastic rounding (`sround.py`, bit-trick, verified unbiased to ~1e-7 over 20k draws) lifts survival to **0.255** — and the 300-step A/B, one flag apart, reads round-to-nearest `+0.0042/+0.0044/+0.0011/+0.0016/+0.0048/+0.0023` vs stochastic `+0.0002/+0.0016/+0.0019/+0.0062/+0.0012/+0.0026` against a 2.2627 baseline: **both flat, both drifting up**. The defect is real, the fix is correct, and the null survives it — so the null is not a harness artefact. Also records the eval-power trap (**8 blocks = 1,536 tokens/eval** cannot adjudicate this), the memory ladder on a 95 GiB card (**block 384 → 1.0 GiB free, 256 → 3.9, 192 → 5.4 GiB at 1.83 s/step, and smaller blocks are 3× faster**), that `expandable_segments` *hurt*, the int32-vs-int64 `scatter` bug (a dtype bug present in 5.20.2 *and* 5.22.1, so the version pin was never the fix), Colab's **notebook-idle reaper** killing VMs ~1 h after the last exec while training ran, idle sessions billing **10.05 CU/hr**, and free-model endpoints rotting within hours (`iceman` 264.8 words/s at 119/120 → **HTTP503 6/6** later; `crouton` 100% 503 above concurrency 16) |
 
 ## Provenance
 
@@ -200,7 +201,7 @@ Hardware referenced throughout:
 | DESKTOP-JKJQB5R (50.119) | i9-12900H, 20T | RTX 3060 Laptop 6 GB | same laptop as 50.77 but **15 GB RAM** — read the RAM before any number from this box |
 | remediate-2 | i7-12700T, 20T | T1000 8 GB | CPU-only perplexity and NIAH, 20 threads |
 | garlic-clove | — | **Intel Arc Pro B60** (BMG G21, 21414 MiB) | Vulkan inference, 10.3× the CPU rate |
-| Colab G4 | — | 96 GB, 102 GB available | bf16 routing profile, 3.14 CU |
+| Colab G4 | — | **94.97 GiB usable** (102 GB nominal) | bf16 routing profile and the table-training runs; 236 GB disk. **Notebook-idle reaper kills the VM ~1 h after the last `colab exec` even while a background trainer runs**; `/content` dies with it and Drive mount needs interactive OAuth |
 | DGX Spark | 20 cores, GB10 | **121 GB unified** (118 available) | bf16 baseline + expert heal; 12 h/week, nightly window, `/workspace` persists |
 
 ## Status
@@ -223,3 +224,15 @@ intact baselines only 2.59% apart. Byte count and architecture do not bound a be
 difference. Treat every remaining figure here as a property of `3544d100…824` until it is
 re-run, and note that entry 20's per-chunk result suggests the *shape* of a damage curve
 matters as much as its mean.
+
+**Training the table is at a null that has survived its own diagnosis.** The best run so far is
+6,100 steps over 7.43 h on the DGX Spark, touching **4,294,740 rows = 11.00%** of the 39,040,000-row
+table, moving held-out cross-entropy **1.985624 → 1.985061** — a delta of **−0.00056** against a
+0.0005 run-to-run standard deviation, i.e. **1.1σ**, with a linear fit over 51 evals of −0.0001. Entry
+27 then found a real defect in the update path (bf16 rounding discarding 78% of writes) and fixed it,
+and the loss did not move. The null has now reproduced on two GPUs, two block sizes and both rounding
+regimes, so it is not a harness artefact. What remains untested is the **gradient signal itself**
+(nothing measured gradient norm on touched rows) and whether the **balance term crowds out
+cross-entropy** — head occupancy moves visibly, 80.8% → 87.0% in the first three heads, while CE does
+nothing. Any further run needs a larger eval than the 8 blocks / 1,536 tokens used so far, or it
+cannot adjudicate the question it is being paid to answer.
